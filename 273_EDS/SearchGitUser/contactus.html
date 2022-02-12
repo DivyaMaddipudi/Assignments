@@ -19,8 +19,8 @@
           type="text"
           class="inp name"
           id="name"
-          placeholder="enter your name"
-          pattern=".[A-Za-z]{2,}$"
+          placeholder="Enter your name"
+          pattern=".[A-Za-z\s]{2,}$"
           required
         />
         <br />
@@ -30,15 +30,21 @@
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           class="inp email"
           id="email"
-          placeholder="enter your email"
+          placeholder="Enter your email"
           required
         />
         <br />
+
+        <span>Location <i>(Updates Automatically)</i></span>
+        <br />
+        <input type="text" id="location" class="inp location" readonly />
+        <br />
+
         <span>Message</span> <br />
-        <textarea class="inp textarea_message" required></textarea>
-        <input type="submit" value="submit" class="btn" />
+        <textarea class="inp textarea_message" id="message" required></textarea>
+        <button class="btn submit_form_button" id="btn">Search</button>
       </form>
     </div>
-    <script type="text/javascript" src="./JS/contactScript.js"></script>
+    <script type="module" src="./JS/contactScript.js"></script>
   </body>
 </html>

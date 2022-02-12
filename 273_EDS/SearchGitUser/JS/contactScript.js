@@ -1,27 +1,29 @@
-// const formElement = document.querySelector(".contact_form");
-// const formDataElement = formElement.querySelector(".form");
-// const submitInput = formDataElement.querySelector(".btn");
-// console.log(submitInput);
-// console.log(formDataElement);
-// submitInput.addEventListener("click", getFormData);
+"use strict";
+import { GetCityName } from "./cityName.js";
 
-// function getFormData(e) {
-//   let formData = new FormData(formDataElement);
-//   // console.log(formData.forEach((ex) => console.log(ex)));
-//   alert(document.getElementById(".name"));
-// }
+const submitForm = document.getElementById("btn");
+submitForm.addEventListener("click", fetchFormData);
 
-// // document.addEventListener(
-// //   "DOMContentLoaded",
-// //   function () {
-// //     submitInput.addEventListener("click", getFormData);
-// //   },
-// //   false
-// // );
+function fetchFormData(ev) {
+  ev.preventDefault();
+  const nameElement = document.getElementById("name").value;
+  const emailElement = document.getElementById("email").value;
+  const messageElement = document.getElementById("message").value;
 
-document.querySelectorAll(".form input");
+  // let formData = new FormData(document.querySelector("form"));
+  console.log(messageElement + "-" + nameElement + "-" + emailElement);
+  // form object
+  let formObject = {
+    name: nameElement,
+    email: emailElement,
+    message: messageElement,
+  };
 
-Array.from(document.querySelector(".form input")).reduce((acc, input) => ({
-  ...acc,
-  [input.id]: input.value,
-}));
+  console.log(formObject + "object of the form");
+  // Stringify - this is used to convert object into string to store in local/session storage
+  const jsonFormData = JSON.stringify(formObject);
+  console.log(typeof jsonFormData + " -- type of operator");
+  // Storing data in session storage
+  sessionStorage.setItem("formData", jsonFormData);
+  GetCityName.getCoordintes(); // get coordinates is a static function
+}

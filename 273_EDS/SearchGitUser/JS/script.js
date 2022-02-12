@@ -1,10 +1,10 @@
 "use strict";
-// import { initMap } from "./location.js";
+import { LocalStorageClass } from "./storage.js";
 
 let getGitUserName = document.getElementById("enter_git_user");
 const submitGitUserName = document.querySelector(".submit_git_user_name");
 const apiEndPoint = "https://api.github.com/users/";
-
+console.log(submitGitUserName);
 submitGitUserName.addEventListener("click", fetchUserDetails);
 
 async function fetchUserDetails() {
@@ -12,6 +12,7 @@ async function fetchUserDetails() {
   try {
     const response = await fetch(finalEndPoint);
     const jsonData = await response.json();
+
     if (jsonData.hasOwnProperty("message")) {
       console.log(jsonData.message);
       throw Error(jsonData.message);
@@ -21,7 +22,10 @@ async function fetchUserDetails() {
     getCreatedDate(jsonData);
     getUserLocation(jsonData);
 
-    // console.log(jsonData);
+    LocalStorageClass.storeInLocalStorage(jsonData);
+    LocalStorageClass.getSessionStorage();
+    LocalStorageClass.getSessionItem();
+    console.log(jsonData);
   } catch (err) {
     alert("Invalid username" + err);
   }
