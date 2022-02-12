@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Github User</title>
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="page_header" id="page_header">
+      <div class="page_title">devsearch</div>
+      <a class="contactus_link" href="https://www.google.com">contact us</a>
+    </header>
+    <!-- head div -->
+    <div class="search_git_user" id="search_git_user">
+      <input
+        type="text"
+        class="enter_git_user"
+        id="enter_git_user"
+        placeholder="Search GitHub username..."
+      />
+      <button class="btn submit_git_user_name" id="btn">Search</button>
+    </div>
+
+    <!-- octocat logo -->
+    <div class="user_profile" id="user_profile">
+      <img
+        class="git_logo"
+        id="git_logo"
+        src="./Images/Git.png"
+        alt="Git Logo"
+      />
+
+      <!-- octocat main div heading -->
+      <div class="octocat" id="octocat">
+        <h1>The Octocat</h1>
+        <h3 class="octocat_subhead">@Octocat</h3>
+      </div>
+
+      <!-- git joined date -->
+      <div class="git_joined_date" id="git_joined_date">Joined Date</div>
+
+      <div class="user_bio">
+        <p class="user_git_bio">By default, no bio exists</p>
+      </div>
+      <div class="user_main_profile" id="user_main_profile">
+        <!-- repos, followers, following -->
+        <ul class="count_profile" id="count_profile">
+          <li class="repos" id="repos">Repos</li>
+          <li class="followers" id="followers">Followers</li>
+          <li class="following" id="following">Following</li>
+        </ul>
+        <ul
+          class="count_profile count_profile_values"
+          id="count_profile_values"
+        >
+          <li class="repos_count" id="repos_count">0</li>
+          <li class="followers_count" id="followers_count">0</li>
+          <li class="following_count" id="following">0</li>
+        </ul>
+      </div>
+
+      <!-- user location -->
+      <div class="user_location">
+        <span class="material-icons" id="location_icon"> place </span>
+        <button class="loc_name" id="loc_name" onclick="initMap()">
+          User location
+        </button>
+        <!-- <div class="map" id="map"></div> -->
+      </div>
+    </div>
+
+    <!-- <script type="text/javascript" src="./JS/location.js"></script> -->
+    <script type="text/javascript" src="./JS/script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLvuPmmvz9b2rn1PHysopGzjKB9HJSFGA&callback=initMap"></script>
+
+    <!-- <script type="text/javascript" src="./JS/script.js"></script> -->
+
+    <!-- AIzaSyCLvuPmmvz9b2rn1PHysopGzjKB9HJSFGA -->
+  </body>
+</html>
