@@ -1,8 +1,7 @@
 "use strict";
 export class LocalStorageClass {
-  static storeInLocalStorage(userData, id = sessionStorage.length) {
-    id = userData.id;
-    localStorage.setItem(id, userData.login);
+  static storeInLocalStorage(userName, id) {
+    localStorage.setItem(id, userName);
   }
 
   static getSessionStorage(size = 0) {

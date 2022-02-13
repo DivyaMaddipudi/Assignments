@@ -13,18 +13,20 @@ async function fetchUserDetails() {
     const response = await fetch(finalEndPoint);
     const jsonData = await response.json();
 
-    if (jsonData.hasOwnProperty("message")) {
-      console.log(jsonData.message);
-      throw Error(jsonData.message);
-    }
+    console.log("--------- Object Destructuring ---------------");
+    // object destructuring
+    let { html_url, login, id } = jsonData;
+    console.log(html_url);
+
     userBio(jsonData);
     countProfileStatus(jsonData);
     getCreatedDate(jsonData);
     getUserLocation(jsonData);
 
-    LocalStorageClass.storeInLocalStorage(jsonData);
+    // stores only necessary values in local session
+    // location session - is a kind of memory that stores the data until user deletes
+    LocalStorageClass.storeInLocalStorage(login, id);
     LocalStorageClass.getSessionStorage();
-    LocalStorageClass.getSessionItem();
     console.log(jsonData);
   } catch (err) {
     alert("Invalid username" + err);
