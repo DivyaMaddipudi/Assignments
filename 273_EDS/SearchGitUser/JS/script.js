@@ -18,6 +18,9 @@ async function fetchUserDetails() {
     let { html_url, login, id } = jsonData;
     console.log(html_url);
 
+    // Closure call
+    getSearchCount();
+
     userBio(jsonData);
     countProfileStatus(jsonData);
     getCreatedDate(jsonData);
@@ -70,6 +73,7 @@ const getCreatedDate = (userData) => {
   let fetchJoinedDate = userData.created_at;
   let dateJoined = new Date(fetchJoinedDate);
 
+  // split
   let splittedDate = dateJoined.toString().split(" ");
 
   let formattedDate =
@@ -78,5 +82,17 @@ const getCreatedDate = (userData) => {
 
   getCreatedDate.textContent = `Joined ${formattedDate}`;
 };
+
+// Closure - PS: Checking number of times the search button is clicked
+var getSearchCount = (function () {
+  var counter = 0;
+
+  return function () {
+    ++counter;
+    console.log(counter);
+    const searchCount = document.querySelector(".searchCount");
+    searchCount.textContent = counter;
+  };
+})();
 
 // export { userBio, countProfileStatus, getUserLocation, getCreatedDate };

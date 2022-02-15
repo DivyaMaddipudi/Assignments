@@ -8,7 +8,7 @@ export class LocalStorageClass {
     //default parameter
     size = localStorage.length;
     document.getElementById(
-      "footer"
+      "users_count"
     ).innerHTML = `Searched ${size} users in this session`;
   }
 }
