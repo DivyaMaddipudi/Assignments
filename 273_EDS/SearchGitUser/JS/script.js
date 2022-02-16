@@ -18,8 +18,18 @@ async function fetchUserDetails() {
     let { html_url, login, id } = jsonData;
     console.log(html_url);
 
+    const values = Object.values(jsonData);
+    console.log(values);
+    console.log(values.slice[0]);
+
+    console.log("------Checks username in the array---------");
+    console.log(values.includes(getGitUserName));
+
     // Closure call
     getSearchCount();
+
+    console.log("-------------Array Destructuring---------");
+    parseUrl(html_url);
 
     userBio(jsonData);
     countProfileStatus(jsonData);
@@ -28,7 +38,7 @@ async function fetchUserDetails() {
 
     // stores only necessary values in local session
     // location session - is a kind of memory that stores the data until user deletes
-    LocalStorageClass.storeInLocalStorage(login, id);
+    LocalStorageClass.storeInLocalStorage(id, login);
     LocalStorageClass.getSessionStorage();
     console.log(jsonData);
   } catch (err) {
@@ -74,11 +84,11 @@ const getCreatedDate = (userData) => {
   let dateJoined = new Date(fetchJoinedDate);
 
   // split
+  console.log("----------split------------");
   let splittedDate = dateJoined.toString().split(" ");
 
   let formattedDate =
     "" + splittedDate[2] + " " + splittedDate[1] + " " + splittedDate[3];
-  console.log(formattedDate);
 
   getCreatedDate.textContent = `Joined ${formattedDate}`;
 };
@@ -94,5 +104,17 @@ var getSearchCount = (function () {
     searchCount.textContent = counter;
   };
 })();
+
+// Array destructuring
+function parseUrl(html_url) {
+  const parsedURL = /^(\w+)\:\/\/([^\/]+)\/(.*)$/.exec(html_url);
+  if (!parsedURL) return false;
+  // console.log(parsedURL);
+  const [, protocol, fullhost, ...rest] = parsedURL;
+  console.log(fullhost);
+
+  console.log("----------Spread--------");
+  console.log(rest);
+}
 
 // export { userBio, countProfileStatus, getUserLocation, getCreatedDate };
