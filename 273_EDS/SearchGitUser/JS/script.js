@@ -2,9 +2,9 @@
 import { LocalStorageClass } from "./storage.js";
 
 let getGitUserName = document.getElementById("enter_git_user");
-const submitGitUserName = document.querySelector(".submit_git_user_name");
 const apiEndPoint = "https://api.github.com/users/";
-console.log(submitGitUserName);
+const submitGitUserName = document.querySelector(".submit_git_user_name");
+
 submitGitUserName.addEventListener("click", fetchUserDetails);
 
 async function fetchUserDetails() {
@@ -14,9 +14,6 @@ async function fetchUserDetails() {
     if (getGitUserName.value) {
       const response = await fetch(finalEndPoint);
       const jsonData = await response.json();
-
-      console.log("---------------------Promise----------------------");
-      // response.then((res) => res.json()).then((d) => console.log(d));
 
       console.log("--------------Object Destructuring----------------");
       // object destructuring
@@ -34,6 +31,9 @@ async function fetchUserDetails() {
       // Closure call
       getSearchCount();
 
+      console.log("---------------------Promise----------------------");
+
+      getData(jsonData);
       console.log("-------------Array Destructuring------------");
       parseUrl(html_url);
 
@@ -132,3 +132,11 @@ function parseUrl(html_url) {
 }
 
 // export { userBio, countProfileStatus, getUserLocation, getCreatedDate };
+
+const getDataProm = new Promise((resolve) => {
+  setTimeout(() => resolve(getData), 4000);
+});
+
+getDataProm.then((result) => result());
+
+const getData = (userData) => console.log(userData["login"]);
