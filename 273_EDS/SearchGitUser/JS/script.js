@@ -9,38 +9,46 @@ submitGitUserName.addEventListener("click", fetchUserDetails);
 
 async function fetchUserDetails() {
   let finalEndPoint = apiEndPoint + getGitUserName.value;
+
   try {
-    const response = await fetch(finalEndPoint);
-    const jsonData = await response.json();
+    if (getGitUserName.value) {
+      const response = await fetch(finalEndPoint);
+      const jsonData = await response.json();
 
-    console.log("--------- Object Destructuring ---------------");
-    // object destructuring
-    let { html_url, login, id } = jsonData;
-    console.log(html_url);
+      console.log("---------------------Promise----------------------");
+      // response.then((res) => res.json()).then((d) => console.log(d));
 
-    const values = Object.values(jsonData);
-    console.log(values);
-    console.log(values.slice[0]);
+      console.log("--------------Object Destructuring----------------");
+      // object destructuring
+      let { html_url, login, id } = jsonData;
+      console.log(html_url);
 
-    console.log("------Checks username in the array---------");
-    console.log(values.includes(getGitUserName));
+      console.log("--------------Slice----------------");
+      const values = Object.values(jsonData);
+      console.log(values.slice(0, 3));
 
-    // Closure call
-    getSearchCount();
+      console.log(values);
+      console.log("-----------Checks username in the array--------------");
+      console.log(values.includes("DivyaMaddipudi"));
 
-    console.log("-------------Array Destructuring---------");
-    parseUrl(html_url);
+      // Closure call
+      getSearchCount();
 
-    userBio(jsonData);
-    countProfileStatus(jsonData);
-    getCreatedDate(jsonData);
-    getUserLocation(jsonData);
+      console.log("-------------Array Destructuring------------");
+      parseUrl(html_url);
 
-    // stores only necessary values in local session
-    // location session - is a kind of memory that stores the data until user deletes
-    LocalStorageClass.storeInLocalStorage(id, login);
-    LocalStorageClass.getSessionStorage();
-    console.log(jsonData);
+      console.log("--------------Arrow Functions----------------");
+      userBio(jsonData);
+      countProfileStatus(jsonData);
+      getCreatedDate(jsonData);
+      getUserLocation(jsonData);
+
+      // stores only necessary values in local session
+      // location session - is a kind of memory that stores the data until user deletes
+      LocalStorageClass.storeInLocalStorage(id, login);
+      LocalStorageClass.getSessionStorage();
+      console.log(jsonData);
+    }
   } catch (err) {
     alert("Invalid username" + err);
   }
@@ -64,6 +72,10 @@ const countProfileStatus = (userData) => {
   reposCount.textContent = userData.public_repos;
   followersCount.textContent = userData.followers;
   followingCount.textContent = userData.following;
+
+  console.log("Repositories Count: " + userData.public_repos);
+  console.log("Followers Count: " + userData.followers);
+  console.log("Following Count: " + userData.following);
 };
 
 const getUserLocation = (userData) => {
@@ -90,6 +102,8 @@ const getCreatedDate = (userData) => {
   let formattedDate =
     "" + splittedDate[2] + " " + splittedDate[1] + " " + splittedDate[3];
 
+  console.log("Github Account Created Date:" + formattedDate);
+
   getCreatedDate.textContent = `Joined ${formattedDate}`;
 };
 
@@ -113,7 +127,7 @@ function parseUrl(html_url) {
   const [, protocol, fullhost, ...rest] = parsedURL;
   console.log(fullhost);
 
-  console.log("----------Spread--------");
+  console.log("---------------Spread-------------");
   console.log(rest);
 }
 

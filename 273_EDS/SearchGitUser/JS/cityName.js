@@ -2,7 +2,7 @@
 
 export class GetCityName {
   // Getting current location of the user
-  getCoordintes() {
+  static getCoordintes() {
     var options = {
       enableHighAccuracy: true,
       timeout: 10000,

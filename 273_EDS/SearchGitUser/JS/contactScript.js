@@ -21,9 +21,15 @@ function fetchFormData(ev) {
 
   console.log(formObject + "object of the form");
   // Stringify - this is used to convert object into string to store in local/session storage
+  console.log("------------------Stringify-------------------");
   const jsonFormData = JSON.stringify(formObject);
-  console.log(typeof jsonFormData + " -- type of operator");
+  console.log("------------------type of operator-------------------");
+  console.log(typeof jsonFormData);
   // Storing data in session storage
   sessionStorage.setItem("formData", jsonFormData);
+
+  console.log("------------------Parse-------------------");
+  let sessionData = sessionStorage.getItem("formData");
+  console.log(JSON.parse(sessionData));
   GetCityName.getCoordintes(); // get coordinates is a static function
 }
