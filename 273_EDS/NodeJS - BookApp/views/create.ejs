@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create</title>
+  </head>
+  <body>
+    <form action="/create" method="post">
+      <table>
+        <tr>
+          <td>Book Id</td>
+          <td>
+            <input
+              type="text"
+              pattern="^[0-9]*$"
+              class="bookid"
+              name="BookID"
+              title="Book ID should contain only numbers"
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Book Name</td>
+          <td>
+            <input
+              type="text"
+              class="bookname"
+              name="Title"
+              required
+              pattern="^[A-Za-z][]0-9]+$"
+              title="Book Name should contain only characters"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Author Name</td>
+          <td>
+            <input
+              type="text"
+              class="authorname"
+              pattern="^[A-Za-z]+$"
+              name="Author"
+              title="Author should contain only characters"
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><button type="submit">Submit</button></td>
+          <td></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
