@@ -5,20 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Delete</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link
+      href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
-    <div><%= locals.error %></div>
-    <form action="/delete" method="post">
-      <table>
-        <tr>
-          <td>Book Id</td>
-          <td><input type="number" class="bookid" name="BookID" /></td>
-        </tr>
-        <tr>
-          <td><button type="submit">Submit</button></td>
-          <td></td>
-        </tr>
-      </table>
-    </form>
+    <div class="wrapper">
+      <h2>Delete Book</h2>
+      <div id="error" class="error"><%= locals.error %></div>
+      <form action="/delete" method="post">
+        <table class="book-form">
+          <tr>
+            <td>Book Id</td>
+            <td>
+              <input
+                type="text"
+                pattern="^[0-9]*$"
+                class="bookid"
+                name="BookID"
+                title="Book ID should contain only numbers"
+                placeholder="Enter Book Id to delete"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button type="submit" class="btn-create btn-primary">
+                Submit
+              </button>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </form>
+    </div>
   </body>
 </html>

@@ -80,7 +80,6 @@ app.post("/login", function (req, res) {
       } else {
         loginErrorMsg = "Invalid Credentials";
         res.render("login", { error: loginErrorMsg });
-        res.redirect("/login");
       }
     });
   }
@@ -135,7 +134,6 @@ app.post("/create", function (req, res) {
     });
   } else {
     books.push(req.body);
-    books.sort();
     console.log("-------------------------------" + req.session.user);
     res.redirect("/home");
   }
