@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <div><%= locals.error %></div>
+
     <form action="/create" method="post">
       <table>
         <tr>
@@ -41,7 +45,7 @@
             <input
               type="text"
               class="authorname"
-              pattern="^[A-Za-z]+$"
+              pattern="^[A-Za-z\s]*$"
               name="Author"
               title="Author should contain only characters"
               required
@@ -50,7 +54,6 @@
         </tr>
         <tr>
           <td><button type="submit">Submit</button></td>
-          <td></td>
         </tr>
       </table>
     </form>

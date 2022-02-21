@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 //require express session
 var session = require("express-session");
 var cookieParser = require("cookie-parser");
+const req = require("express/lib/request");
 
 //set the view engine to ejs
 app.set("view engine", "ejs");
@@ -29,6 +30,15 @@ app.use(
   })
 );
 
+const isAuth = (req, res, next) => {
+  console.log(req.session.isAuth + " checkong in isAuth------------");
+  if (req.session.isAuth) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
+
 //Only user allowed is admin
 var Users = [
   {
@@ -42,17 +52,20 @@ var books = [
   { BookID: "2", Title: "Book 2", Author: "Author 2" },
   { BookID: "3", Title: "Book 3", Author: "Author 3" },
 ];
+
 //route to root
 app.get("/", function (req, res) {
-  //check if user session exits
-  if (req.session.user) {
-    res.render("/home");
-  } else res.render("login");
+  console.log(!req.session.user + " checking user in localhost");
+  if (!req.session.user) {
+    res.render("login");
+  } else {
+    res.render("home");
+  }
 });
 
 app.post("/login", function (req, res) {
   if (req.session.user) {
-    res.render("/home");
+    res.render("/login");
   } else {
     console.log("Req Body : ", req.body);
     Users.filter((user) => {
@@ -61,13 +74,30 @@ app.post("/login", function (req, res) {
         user.password === req.body.password
       ) {
         req.session.user = user;
+        req.session.isAuth = true;
+        console.log(req.session.user + "checking in login");
         res.redirect("/home");
+      } else {
+        loginErrorMsg = "Invalid Credentials";
+        res.render("login", { error: loginErrorMsg });
+        res.redirect("/login");
       }
     });
   }
 });
 
-app.get("/home", function (req, res) {
+app.get("/login", function (req, res) {
+  console.log(!req.session.user + " checking user in login get");
+  if (!req.session.user) {
+    res.redirect("/");
+  } else {
+    res.redirect("/home");
+  }
+});
+
+app.get("/home", isAuth, function (req, res) {
+  // console.log(req.session.user + " checking in home");
+  console.log(!req.session.user + " checking in home boolean");
   if (!req.session.user) {
     res.redirect("/");
   } else {
@@ -78,7 +108,15 @@ app.get("/home", function (req, res) {
   }
 });
 
+app.post("/logout", function (req, res) {
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.redirect("/");
+  });
+});
+
 app.get("/create", function (req, res) {
+  console.log(req.session.user + " checking user in create");
   if (!req.session.user) {
     res.redirect("/");
   } else {
@@ -91,9 +129,14 @@ app.post("/create", function (req, res) {
   console.log("Res Body: ", req.body);
   let isIdExist = books.some((book) => book.BookID === req.body.BookID);
   if (isIdExist) {
-    alert("Id already exists");
+    let errorMsg = `Book with Id ${req.body.BookID} already exist`;
+    res.render("create", {
+      error: errorMsg,
+    });
   } else {
     books.push(req.body);
+    books.sort();
+    console.log("-------------------------------" + req.session.user);
     res.redirect("/home");
   }
 });
@@ -117,10 +160,12 @@ app.post("/delete", function (req, res) {
         break;
       }
     }
+    res.redirect("/home");
   } else {
     console.log(`Book with Id ${req.body.BookID} doesn't exist`);
+    let deleteErrorMsg = `Book with Id ${req.body.BookID} doesn't exist`;
+    res.render("delete", { error: deleteErrorMsg });
   }
-  res.redirect("/home");
 });
 
 var server = app.listen(3000, function () {
