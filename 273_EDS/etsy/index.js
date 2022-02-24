@@ -64,10 +64,12 @@ app.post("/login", (req, res, next) => {
     console.log("Req Body : ", req.body);
     Users.filter((user) => {
       if (
-        user.username === req.body.username &&
+        user.username === req.query.username &&
         user.password === req.body.password
       ) {
         req.session.user = user;
+        console.log(username);
+        console.log(password);
         console.log(req.session.user + "checking in login");
         res.redirect("/home");
       } else {
