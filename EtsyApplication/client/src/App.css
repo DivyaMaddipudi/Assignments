@@ -1,0 +1,235 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.navBar {
+  width: 100%;
+  height: 10vh;
+  margin-top: 10px;
+  /* background-color: green; */
+  display: flex;
+  line-height: 8vh;
+}
+
+.logo {
+  margin-left: 4%;
+  color: rgb(255, 81, 0);
+  font-size: 40px;
+  font-weight: 10;
+  line-height: 8vh;
+}
+
+.searchBar {
+  width: 120%;
+  margin-top: 11px;
+  height: 6vh;
+  max-height: 8vh;
+  border-radius: 25px;
+  border: 2px solid black;
+  margin-left: 1%;
+  background-color: rgb(243, 234, 223);
+  font-size: 20px;
+  padding-left: 15px;
+}
+
+.icons {
+  width: 30%;
+  list-style-type: none;
+  margin-left: -2%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.icons_nav:hover {
+  height: 50px;
+  border-radius: 20px;
+  display: flex;
+  cursor: pointer;
+  font-size: 18px;
+  /* background-color: rgb(243, 234, 223); */
+}
+
+.sectionItems {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 1%;
+  /* background-color: red; */
+}
+
+.sectionItems_list {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-evenly;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sectionItems_list:hover {
+  cursor: pointer;
+}
+
+.dash_board {
+  width: 100%;
+  height: 200px;
+  background-color: blanchedalmond;
+  margin-top: 10px;
+  box-shadow: 3px 0px 4px 2px #888888;
+}
+.title {
+  padding-top: 20px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+.dashboard_items {
+  width: 100%;
+  padding-top: 80px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.dashboard_item > img {
+  width: 100px;
+  border-radius: 50%;
+  height: 105px;
+}
+
+.signin_title {
+  text-align: center;
+}
+.signin_sub {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.form-group label {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+.form-group input {
+  width: 40%;
+  height: 5vh;
+  border-color: 10px solid black;
+  padding-left: 10px;
+  border-radius: 10px;
+}
+
+.signin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.bg-modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 400px;
+  height: 550px;
+  background-color: white;
+  border-radius: 20px !important;
+  position: relative;
+}
+
+.signin_heading {
+  display: flex;
+  padding-top: 40px;
+  margin-left: 20px;
+  margin-right: 30px;
+  justify-content: space-between;
+}
+.signin_form {
+  padding-top: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.signin_form label {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 3px;
+  font-weight: bold;
+}
+.signin_form input {
+  border-radius: 4px;
+  border: 1px solid black;
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+}
+
+.signin_form .btn {
+  margin-top: 15px;
+  width: 99%;
+  background-color: black;
+  border-radius: 100px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.signin_form .btn:hover {
+  background-color: rgb(41, 41, 41);
+  height: 55px;
+  width: 100%;
+  font-size: 18px;
+  transition: 0.4s;
+}
+
+.forgot_password {
+  margin-top: 3%;
+  text-decoration: underline;
+  text-align: end;
+}
+
+.signin_close {
+  position: absolute;
+  width: 10%;
+  height: 8%;
+  padding-top: 2px;
+  text-align: center;
+  /* background-color: red; */
+  font-size: 25px;
+  top: 0;
+  right: 5px;
+  margin-top: -12%;
+  color: white;
+}
+
+.signin_close:hover {
+  cursor: pointer;
+  background-color: rgb(232, 232, 232, 0.3);
+  border-radius: 45%;
+  transition: 0.8s;
+}
+
+.signin_heading button {
+  background-color: white;
+  color: black;
+  padding: 8px 16px;
+  border: 2px solid black;
+  border-radius: 100px;
+  margin-top: -10px;
+}
+
+.signin_heading button:hover {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  font-size: 18px;
+  padding: 8px 16px;
+  transition: 0.4s;
+}
