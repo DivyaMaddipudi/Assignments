@@ -1,43 +1,37 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navigate, useNavigate } from "react-router-dom";
 import Axios from "axios";
-import Home from "./Home";
 import Register from "./register";
+import CloseLogin from "./closeLogin";
 
 function Signin({ setshowSignIn }) {
-  let navigate = useNavigate();
-
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const showHomePage = () => {
-    setshowSignIn(false);
-  };
+  const [showRegister, setShowRegister] = useState(false);
 
   const handleRegister = () => {
-    Navigate("/register");
+    setShowRegister(true);
   };
-  const addUser = () => {
-    console.log("Hello");
-    Axios.post("http://localhost:4000/signup", {
+
+  const checkUser = (e) => {
+    // e.preventDefault();
+    Axios.post("http://localhost:4000/signin", {
       email: email,
-      username: username,
       password: password,
-    }).then(() => {
-      navigate("/home");
-      console.log("Success");
-    });
+    })
+      .then(() => {
+        console.log("Success");
+      })
+      .catch(console.log("Hello"));
   };
 
   return (
     <>
       <div className="bg-modal">
         <div className="modal-content">
-          <div className="signin_close">
-            <p onClick={showHomePage}>X</p>
-          </div>
+          <CloseLogin setshowSignIn={setshowSignIn} />
+
           <div className="signin_heading">
             <h4>Sign in</h4>
             <button
@@ -47,7 +41,7 @@ function Signin({ setshowSignIn }) {
               Register
             </button>
           </div>
-          <form className="signin_form" action="/home">
+          <form className="signin_form">
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
               <br />
@@ -56,6 +50,9 @@ function Signin({ setshowSignIn }) {
                 className="email"
                 id="email"
                 placeholder="Enter email"
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
                 required
               />
             </div>
@@ -68,17 +65,27 @@ function Signin({ setshowSignIn }) {
                 className="password"
                 id="password"
                 placeholder="Password"
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
                 required
               />
             </div>
             <div className="forgot_password">
               <p className="password_forgot">Forgot your password?</p>
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button
+              onClick={checkUser}
+              type="submit"
+              className="btn btn-primary"
+            >
               Sign In
             </button>
           </form>
         </div>
+        {showRegister === true && (
+          <Register setShowRegister={setShowRegister} />
+        )}
       </div>
     </>
   );

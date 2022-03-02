@@ -11,7 +11,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import Register from "./components/register";
-
+import WelcomePage from "./components/welcomePage";
+import Navbar from "./components/Navbar";
 // import Axios from "axios";
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home authorized={false} />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/welcome" element={<WelcomePage />} />
         </Routes>
       </Router>
     </>
