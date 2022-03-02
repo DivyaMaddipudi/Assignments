@@ -2,6 +2,7 @@ const { json } = require("body-parser");
 const mysql = require("mysql");
 const constants = require("../config/config.json");
 const Users = require("../models");
+const session = require("express-session");
 
 const db = mysql.createConnection({
   host: constants.development.host,
@@ -11,7 +12,7 @@ const db = mysql.createConnection({
   database: constants.development.database,
 });
 
-exports.sayHi = async (req, res) => {
+exports.sayHi = (req, res) => {
   const listOfUsers = db.query("SELECT * FROM Users", (err, result) => {
     if (err) {
       console.log(err);
@@ -40,49 +41,31 @@ exports.signUp = (req, res) => {
   );
 };
 
-const setOutput = (result) => {
-  output = result[0];
-  console.log(output.name);
-};
-
 exports.login = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(email + " email body");
-  // const password = req.body.password;
-
   console.log("In login post req");
+  console.log(email + " " + password + " email body");
   db.query(
-    "SELECT * FROM Users WHERE email=? AND password=?",
+    "SELECT * FROM Users WHERE email = ? AND password = ?",
     [email, password],
     (err, result) => {
+      console.log(
+        "res length------------" + result + "=======" + result.length
+      );
       if (err) {
-        res.sendStatus(400).send({ err: err });
-        res.end();
+        res.send({ err: err });
       }
-
       if (result.length > 0) {
-        res.cookie("cookie", result[0].name, {
+        res.cookie("emailCookie", "cookie", {
           maxAge: 900000,
           httpOnly: false,
           path: "/",
         });
-        setOutput(result);
-        res.sendStatus(200).send(result);
-        res.end();
+        res.send(result);
       } else {
-        res.sendStatus(400).send({ message: "Wrong Username/Pasword!" });
-        res.end();
+        res.send({ message: "Invalid creds" });
       }
     }
   );
-};
-
-exports.getHome = (req, res) => {
-  if (req.session.loggedin) {
-    console.log(req.session.username + "------------------------");
-    res.send("Welcome back, " + req.session.username + "!");
-  } else {
-    res.send("Please login to view this field");
-  }
 };

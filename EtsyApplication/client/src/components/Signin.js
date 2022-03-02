@@ -1,30 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Axios from "axios";
 import Register from "./register";
 import CloseLogin from "./closeLogin";
+import { Navigate, useNavigate } from "react-router-dom";
+import cookie from "react-cookies";
 
 function Signin({ setshowSignIn }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState("");
   const [showRegister, setShowRegister] = useState(false);
 
+  const [loginStatus, setLoginStatus] = useState("");
   const handleRegister = () => {
     setShowRegister(true);
   };
 
+  Axios.defaults.withCredentials = true;
+
   const checkUser = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     Axios.post("http://localhost:4000/signin", {
       email: email,
       password: password,
     })
-      .then(() => {
-        console.log("Success");
+      .then((response) => {
+        if (response.data.length === 1) {
+          console.log(response);
+          console.log(response.data[0]);
+          window.location.pathname = "/home";
+        } else {
+          setError("Invalid Credentials!");
+        }
       })
-      .catch(console.log("Hello"));
+      .catch((err) => {
+        setError("Invalid credentials");
+      });
   };
+  useEffect(() => {
+    Axios.get("http://localhost:4000/signin").then((response) => {
+      // console.log(response);
+      if (response.data.loggedIn === true) {
+        setLoginStatus(response.data.user[0]);
+        console.log(loginStatus);
+        console.log("++++++++++cookie ++++++++++++" + cookie.load("email"));
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -42,6 +66,8 @@ function Signin({ setshowSignIn }) {
             </button>
           </div>
           <form className="signin_form">
+            <span style={{ color: "red" }}>{error}</span>
+
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
               <br />

@@ -1,10 +1,11 @@
 import React from "react";
+import cookie from "react-cookies";
 
 function Dashboard() {
   return (
     <div>
       <div className="dash_board">
-        <h1 className="title">Welcome to Etsy, Username!</h1>
+        <h1 className="title">Welcome to Etsy, {cookie.load("user")}!</h1>
         <div className="dashboard_items">
           <div className="dashboard_item">
             <img

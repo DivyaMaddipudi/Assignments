@@ -10,6 +10,4 @@ router.post("/register", signUp);
 
 router.post("/signin", login);
 
-router.get("/home", getHome);
-
 module.exports = router;
