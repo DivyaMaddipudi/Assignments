@@ -45,7 +45,7 @@ function Signin({ setshowSignIn }) {
       if (response.data.loggedIn === true) {
         setLoginStatus(response.data.user[0]);
         console.log(loginStatus);
-        console.log("++++++++++cookie ++++++++++++" + cookie.load("email"));
+        console.log("++++++++++cookie ++++++++++++" + cookie.load("user"));
       }
     });
   }, []);

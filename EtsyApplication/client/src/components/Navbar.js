@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Signin from "./Signin";
-import "@material-ui/icons/Close";
 import { Navigate } from "react-router";
 import cookie from "react-cookies";
 import {
@@ -11,11 +10,18 @@ import {
 } from "@material-ui/icons";
 // import { PersonIcon, ShoppingCart } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProfileList from "./profileList";
 
 function Navbar() {
   const [showSignIn, setshowSignIn] = useState(false);
+  const [showProfileLists, setShowProfileLists] = useState(false);
+
   const popUpSignIn = () => {
     setshowSignIn(true);
+  };
+
+  const showProfileList = () => {
+    setShowProfileLists(true);
   };
 
   let navLogin = null;
@@ -30,7 +36,7 @@ function Navbar() {
         <li>
           <NotificationsNoneSharp />
         </li>
-        <li>
+        <li onClick={showProfileList}>
           <Person />
         </li>
         <li>
@@ -46,7 +52,6 @@ function Navbar() {
         <li className="icons_nav" onClick={popUpSignIn}>
           Login
         </li>
-
         <li>
           <ShoppingCart />
         </li>
@@ -68,6 +73,13 @@ function Navbar() {
         {navLogin}
       </header>
       {showSignIn && <Signin setshowSignIn={setshowSignIn} />}
+
+      {console.log(
+        showSignIn + "-------------- " + showProfileLists + "------------------"
+      )}
+      {showProfileLists && (
+        <ProfileList setShowProfileLists={setShowProfileLists} />
+      )}
     </div>
   );
 }
