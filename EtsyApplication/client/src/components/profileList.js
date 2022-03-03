@@ -6,10 +6,16 @@ import {
   FavoriteBorderSharp,
 } from "@material-ui/icons";
 import cookie from "react-cookies";
+import { useNavigate } from "react-router-dom";
 
 function profileList({ setShowProfileLists }) {
+  const navigate = useNavigate();
   const showHomePage = () => {
     setShowProfileLists(false);
+  };
+
+  const loadProfilePage = () => {
+    navigate("/profile");
   };
   return (
     <div>
@@ -18,10 +24,17 @@ function profileList({ setShowProfileLists }) {
           {/* <CloseLogin setshowSignIn={setshowSignIn} /> */}
 
           <ul className="profile-icons">
-            <li>
-              <p>{cookie.load("user")}</p>
+            <li onClick={loadProfilePage} className="profile-icon">
+              <b>{cookie.load("user")}</b>
+              <br />
+              <span style={{ fontSize: "14px" }}>View your profile</span>
             </li>
-            <li>Gift card balances</li>
+            <li className="profile-icon">Gift card balance: $0.00</li>
+            <li className="profile-icon">Messages</li>
+            <li className="profile-icon">Purchases and reviews</li>
+            <li className="profile-icon">Account Settings</li>
+            <li className="profile-icon">Sell on Etsy</li>
+            <li className="profile-icon">Sign out</li>
           </ul>
         </div>
       </div>

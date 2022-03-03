@@ -13,6 +13,8 @@ import {
 import Register from "./components/register";
 import WelcomePage from "./components/welcomePage";
 import Navbar from "./components/Navbar";
+import ProfilePage from "./components/profilePage";
+import ProfileForm from "./components/profileForm";
 // import Axios from "axios";
 
 function App() {
@@ -20,11 +22,13 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/updateProfile" element={<ProfileForm />} />
         </Routes>
       </Router>
     </>

@@ -7,6 +7,7 @@ import {
   Person,
   NotificationsNoneSharp,
   FavoriteBorderSharp,
+  PhotoCameraOutlined,
 } from "@material-ui/icons";
 // import { PersonIcon, ShoppingCart } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
