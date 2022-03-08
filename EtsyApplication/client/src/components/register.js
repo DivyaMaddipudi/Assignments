@@ -20,9 +20,6 @@ function register({ setShowRegister }) {
     <>
       <div className="bg-modal">
         <div className="modal-content">
-          {/* <div className="signin_close">
-            <p onClick={showHomePage}>X</p>
-          </div> */}
           <div
             style={{
               marginTop: "30px",

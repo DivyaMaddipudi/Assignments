@@ -1,10 +1,9 @@
-import Profile from "./components/Profile";
-import Login from "./components/Login";
+import React from "react";
+import Login from "./components/login";
 
 function App() {
   return (
     <div>
-      <Profile />
       <Login />
     </div>
   );

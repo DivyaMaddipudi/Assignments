@@ -124,6 +124,35 @@ app.post("/signin", (req, res) => {
   );
 });
 
+app.post("/registerShop", (req, res) => {
+  const shopName = req.body.shopName;
+
+  db.query(
+    "SELECT * FROM Shops WHERE shopName=?",
+    [shopName],
+    (err, result) => {
+      if (result.length != 0) {
+        res.send({
+          message: "duplicate",
+        });
+      } else if (result.length === 0) {
+        console.log("In shops db and no shop name found");
+        db.query(
+          "INSERT INTO Shops (shopName) VALUES (?)",
+          [shopName],
+          (err, result) => {
+            if (err) {
+              res.send({ error: "error" });
+            } else {
+              res.send({ message: "success" });
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
 const PORT = process.env.PORT || 4000;
 models.sequelize.sync().then(() => {
   app.listen(PORT, () => {

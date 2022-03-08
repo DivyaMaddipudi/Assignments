@@ -15,6 +15,8 @@ import WelcomePage from "./components/welcomePage";
 import Navbar from "./components/Navbar";
 import ProfilePage from "./components/profilePage";
 import ProfileForm from "./components/profileForm";
+import SellOnEtsy from "./components/sellOnEtsy";
+import ShopHome from "./components/shopHome";
 // import Axios from "axios";
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/updateProfile" element={<ProfileForm />} />
+          <Route path="/sellonetsy" element={<SellOnEtsy />} />
+          <Route path="/shopHome" element={<ShopHome />} />
         </Routes>
       </Router>
     </>

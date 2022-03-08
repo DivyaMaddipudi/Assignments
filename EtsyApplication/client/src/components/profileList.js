@@ -17,6 +17,10 @@ function profileList({ setShowProfileLists }) {
   const loadProfilePage = () => {
     navigate("/profile");
   };
+
+  const handleSellOnEtsy = () => {
+    navigate("/sellonetsy");
+  };
   return (
     <div>
       <div onClick={showHomePage} className="profile-modal">
@@ -33,7 +37,9 @@ function profileList({ setShowProfileLists }) {
             <li className="profile-icon">Messages</li>
             <li className="profile-icon">Purchases and reviews</li>
             <li className="profile-icon">Account Settings</li>
-            <li className="profile-icon">Sell on Etsy</li>
+            <li onClick={handleSellOnEtsy} className="profile-icon">
+              Sell on Etsy
+            </li>
             <li className="profile-icon">Sign out</li>
           </ul>
         </div>

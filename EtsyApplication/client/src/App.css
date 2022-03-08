@@ -342,42 +342,100 @@
 }
 
 .update_profile_page {
-  background-color: gray;
+  /* background-color: gray; */
   display: flex;
 }
 
 .profile_page_header {
-  padding: 16px;
   margin-bottom: 3%;
+  margin-top: 3%;
   font-size: 20px;
   width: 100%;
-  height: 100px;
-  background-color: blue;
+  height: 5px;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: blue; */
 }
 
 .edit_icons {
-  width: 20%;
-  height: 200px;
-  background-color: green;
+  margin-left: 5%;
+  width: 15%;
+  height: 130px;
+  background-color: rgb(191, 191, 191);
+  border-radius: 3px;
 }
+
+.edit_icons > ul > li {
+  font-size: 14px;
+  list-style-type: none;
+}
+
 .edit_profile {
   width: 100%;
   height: 400px;
-  background-color: red;
   border: 1px solid black;
   border-radius: 5px;
 }
 .profile_bio {
   margin-left: 5%;
   width: 70%;
-  background-color: yellow;
 }
 
 .view_profile {
   width: 12%;
+  height: 25px;
   padding: 2px;
-  margin-left: 85%;
+  font-size: 14px;
+  text-decoration: underline;
+  line-height: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+.profile_table {
+  border-collapse: collapse;
+  margin: 10px;
 }
 
-.view_profile:hover {
+.profile_row {
+  border: 1px solid black;
+}
+
+.sell_page {
+  text-align: center;
+}
+
+.sell_page > hr {
+  width: 50%;
+  margin-left: 25%;
+}
+
+.shop_name {
+  /* background-color: red; */
+}
+
+.shop_name > input {
+  height: 40px;
+  width: 35%;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.shop_name > button {
+  width: 12%;
+  height: 40px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.create_shop > button {
+  margin-top: 20px;
+  background-color: white;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.create_shop > button:hover {
+  background-color: #dadada;
 }
