@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Hoverbar from "./Hoverbar";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import cookie from "react-cookies";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
 
 function sellOnEtsy() {
   const navigate = useNavigate();
+
+  const user = useSelector(selectUser);
   const [shopName, setShopName] = useState("");
   const [error, setError] = useState("");
   //   const [isError, setIsError] = useState(false);
@@ -54,8 +59,15 @@ function sellOnEtsy() {
     );
   }
 
+  let redirectVar = null;
+  if (!user) {
+    console.log("cookie is found " + user);
+    redirectVar = <Navigate to="/home" />;
+  }
+
   return (
     <div>
+      {redirectVar}
       <Navbar />
       <Hoverbar />
       <hr></hr>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import { connect } from "react-redux";
 
 function register({ setShowRegister }) {
   const [email, setEmail] = useState("");
@@ -86,4 +87,8 @@ function register({ setShowRegister }) {
   );
 }
 
-export default register;
+const registerUser = (dispatch) => ({
+  register: (isRegister) => dispatch(register(isRegister)),
+});
+
+export default connect(null, registerUser)(register);

@@ -6,10 +6,15 @@ import {
   FavoriteBorderSharp,
 } from "@material-ui/icons";
 import cookie from "react-cookies";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../features/userSlice";
 
 function profileList({ setShowProfileLists }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
   const showHomePage = () => {
     setShowProfileLists(false);
   };
@@ -21,8 +26,21 @@ function profileList({ setShowProfileLists }) {
   const handleSellOnEtsy = () => {
     navigate("/sellonetsy");
   };
+
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    cookie.remove("user", { path: "/" });
+  };
+
+  let redirectVar = null;
+  if (!user) {
+    console.log("cookie is found " + user);
+    redirectVar = <Navigate to="/home" />;
+  }
   return (
     <div>
+      {redirectVar}
       <div onClick={showHomePage} className="profile-modal">
         <div className="profile-content">
           {/* <CloseLogin setshowSignIn={setshowSignIn} /> */}
@@ -40,7 +58,9 @@ function profileList({ setShowProfileLists }) {
             <li onClick={handleSellOnEtsy} className="profile-icon">
               Sell on Etsy
             </li>
-            <li className="profile-icon">Sign out</li>
+            <li onClick={handleSignOut} className="profile-icon">
+              Sign out
+            </li>
           </ul>
         </div>
       </div>

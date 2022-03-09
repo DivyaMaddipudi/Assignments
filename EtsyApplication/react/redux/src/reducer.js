@@ -1,6 +1,9 @@
 let lastId = 0;
 
 function reducer(state = [], action) {
+  switch (action.type) {
+  }
+
   if (action.type === "bugAdded") {
     return [
       ...state,

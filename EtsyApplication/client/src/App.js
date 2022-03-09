@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 
 // import { useState, useEffect } from "react";
 import Home from "./components/Home";
@@ -17,9 +17,11 @@ import ProfilePage from "./components/profilePage";
 import ProfileForm from "./components/profileForm";
 import SellOnEtsy from "./components/sellOnEtsy";
 import ShopHome from "./components/shopHome";
-// import Axios from "axios";
+import { useSelector } from "react-redux";
+import userSlice, { selectUser } from "./features/userSlice";
 
 function App() {
+  const user = useSelector(selectUser);
   return (
     <>
       <Router>

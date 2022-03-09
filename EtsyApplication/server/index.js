@@ -124,6 +124,15 @@ app.post("/signin", (req, res) => {
   );
 });
 
+app.get("/user", (req, res) => {
+  console.log("hello" + req.session);
+  if (req.session.user) {
+    res.send({ loggedIn: true, user: req.session.user });
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
+
 app.post("/registerShop", (req, res) => {
   const shopName = req.body.shopName;
 
@@ -137,17 +146,6 @@ app.post("/registerShop", (req, res) => {
         });
       } else if (result.length === 0) {
         console.log("In shops db and no shop name found");
-        db.query(
-          "INSERT INTO Shops (shopName) VALUES (?)",
-          [shopName],
-          (err, result) => {
-            if (err) {
-              res.send({ error: "error" });
-            } else {
-              res.send({ message: "success" });
-            }
-          }
-        );
       }
     }
   );
