@@ -29,18 +29,22 @@ function profileList({ setShowProfileLists }) {
 
   const handleSignOut = (e) => {
     e.preventDefault();
+    console.log("In sign out");
     dispatch(logout());
+    console.log("In sign out 1");
+    // navigate("/");
+    window.location.pathname = "/";
     cookie.remove("user", { path: "/" });
   };
 
-  let redirectVar = null;
-  if (!user) {
-    console.log("cookie is found " + user);
-    redirectVar = <Navigate to="/home" />;
-  }
+  // let redirectVar = null;
+  // if (!user) {
+  //   console.log("cookie is found " + user);
+  //   redirectVar = <Navigate to="/home" />;
+  // }
   return (
     <div>
-      {redirectVar}
+      {/* {redirectVar} */}
       <div onClick={showHomePage} className="profile-modal">
         <div className="profile-content">
           {/* <CloseLogin setshowSignIn={setshowSignIn} /> */}

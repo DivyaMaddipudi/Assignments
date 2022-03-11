@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 import cookie from "react-cookies";
 import { useDispatch } from "react-redux";
-import { login } from "../features/userSlice";
+import { login, activeUser, activeShop } from "../features/userSlice";
 
 function Signin({ setshowSignIn }) {
   // const history = useHistory();
@@ -20,6 +20,7 @@ function Signin({ setshowSignIn }) {
   const [loginStatus, setLoginStatus] = useState(null);
 
   const dispatch = useDispatch();
+
   const handleRegister = () => {
     setShowRegister(true);
   };
@@ -37,12 +38,18 @@ function Signin({ setshowSignIn }) {
         if (response.data.length === 1) {
           console.log(response);
           console.log(response.data[0]);
+          console.log("In frontend signin");
           dispatch(
             login({
-              email: email,
+              id: response.data[0].id,
+              email: response.data[0].email,
+              name: response.data[0].name,
+              shopName: response.data[0].shopName,
+              dob: response.data[0].dob,
               loggedIn: true,
             })
           );
+
           window.location.pathname = "/home";
         } else {
           setError("Invalid Credentials!");
@@ -56,6 +63,7 @@ function Signin({ setshowSignIn }) {
   useEffect(() => {
     Axios.get("http://localhost:4000/signin").then((response) => {
       // console.log(response);
+
       if (response.data.loggedIn === true) {
         setLoginStatus(response.data.user[0]);
         console.log(loginStatus);

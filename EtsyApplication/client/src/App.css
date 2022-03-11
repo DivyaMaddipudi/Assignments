@@ -40,11 +40,16 @@
   justify-content: space-evenly;
 }
 
+.icons:hover {
+  cursor: pointer;
+  z-index: 5;
+}
+
 .icons_nav:hover {
+  cursor: pointer;
   height: 50px;
   border-radius: 20px;
   display: flex;
-  cursor: pointer;
   font-size: 18px;
   /* background-color: rgb(243, 234, 223); */
 }
@@ -438,4 +443,95 @@
 
 .create_shop > button:hover {
   background-color: #dadada;
+}
+
+.shophome_header {
+  margin-top: 15px;
+  width: 100%;
+  height: 170px;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.shop_details {
+  margin-left: 5%;
+  width: 30%;
+  height: 170px;
+  /* background-color: yellow; */
+  overflow: hidden;
+  display: flex;
+  justify-content: space-evenly;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.owner_details {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-right: 5%;
+  width: 20%;
+  height: 170px;
+  /* background-color: blue; */
+  text-align: center;
+}
+
+.shop_img {
+  width: 35%;
+}
+
+.shop_name {
+  font-size: 25px;
+}
+
+.editshop_btn {
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+  border: none;
+  background-color: gray;
+  color: white;
+}
+
+.shop_items {
+  margin-top: 20px;
+  width: 100%;
+  height: 400px;
+  /* background-color: red; */
+}
+
+.add_items {
+  margin-left: 10%;
+  width: 50%;
+  height: 400px;
+  /* background-color: green; */
+}
+
+.items_form {
+  margin-left: 10%;
+}
+
+.items_form > .htmlForm-group > input {
+  width: 90%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin-top: 2px;
+  padding: 10px;
+}
+
+.addProd_title {
+  margin-top: 5%;
+  text-align: center;
+  margin-bottom: 5px;
+  color: orange;
+}
+
+.items_form > .htmlForm-group > label {
+  margin-top: 5px;
+}
+
+.items_display {
+  width: 100%;
+  height: 200px;
+  background-color: red;
 }

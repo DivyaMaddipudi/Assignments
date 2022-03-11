@@ -34,6 +34,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    shopName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: true,
+    },
+    shopImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   });
   return Users;
 };

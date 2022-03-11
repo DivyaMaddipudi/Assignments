@@ -9,9 +9,12 @@ const Users = require("./models");
 // const jwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const cookieParser = express("cocookie-parser");
+const multer = require("multer");
+const path = require("path");
 
 //import routes
 const userRoutes = require("./routes/user");
+const { count } = require("console");
 
 const app = express();
 
@@ -64,6 +67,35 @@ const db = mysql.createConnection({
   port: constants.development.port,
   database: constants.development.database,
 });
+
+// storage
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../client/Images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: "1000000" },
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const mimType = fileTypes.test(file.mimetype);
+    const extname = fileTypes.test(path.extname(file.originalname));
+
+    if (mimType && extname) {
+      return cb(null, true);
+    }
+    cb("Give proper file name");
+  },
+}).single("itemImage");
+
+//static images folder
+app.use("/Images", express.static("./Images"));
 
 //routers middleware
 // app.use("/", userRoutes);
@@ -133,19 +165,138 @@ app.get("/user", (req, res) => {
   }
 });
 
-app.post("/registerShop", (req, res) => {
+app.post("/findShopDuplicates", (req, res) => {
   const shopName = req.body.shopName;
-
+  console.log("In findShopDuplicates " + shopName);
   db.query(
-    "SELECT * FROM Shops WHERE shopName=?",
+    "SELECT * FROM Users WHERE shopName=?",
     [shopName],
     (err, result) => {
-      if (result.length != 0) {
+      console.log(result.length);
+      if (result.length !== 0) {
         res.send({
           message: "duplicate",
         });
-      } else if (result.length === 0) {
+        console.log("In shops db shop name found");
+      } else {
+        res.send({
+          message: "No duplicates",
+        });
         console.log("In shops db and no shop name found");
+      }
+    }
+  );
+});
+
+app.post("/createShop/:id", (req, res) => {
+  const shopName = req.body.shopName;
+  const id = req.params.id;
+  console.log("In create shop " + id);
+  db.query(
+    "UPDATE Users SET shopName=? WHERE id=?",
+    [shopName, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        // res.send(result);
+        res.send("Shops Value Inserted in user successfully");
+      }
+    }
+  );
+});
+
+const addProduct = async (req, res) => {
+  const userId = req.params.id;
+  const itemImage = req.itemImage;
+  const itemName = req.body.itemName;
+  const itemDescriprion = req.body.description;
+  const itemPrice = req.body.price;
+  const itemCount = req.body.count;
+
+  console.log("In add product" + itemImage + " jjjjjjj ");
+
+  db.query(
+    "INSERT INTO Items (userId, itemName, itemPrice, itemDescription, itemCount, itemImage) VALUES (?, ?, ?, ?, ?, ?)",
+    [userId, itemName, itemPrice, itemDescriprion, itemCount, itemImage],
+    (err, result) => {
+      if (err) {
+        res.send("error" + err);
+      } else {
+        res.send("Product added successfully");
+      }
+    }
+  );
+};
+app.post("/addProduct/:id", async (req, res) => {
+  try {
+    let upload = multer({ storage: storage }).single("itemImage");
+    upload(req, res, function (err) {
+      if (!req.file) {
+        return res.send("Please select an image to upload");
+      } else if (err instanceof multer.MulterError) {
+        return res.send(err);
+      } else if (err) {
+        return res.send(err);
+      }
+
+      const userId = req.params.id;
+      const itemName = req.body.itemName;
+      const itemDescriprion = req.body.itemDescription;
+      const itemPrice = req.body.itemPrice;
+      const itemCount = req.body.itemCount;
+      const itemImage = req.file.filename;
+      const itemCategory = req.body.itemCategory;
+
+      console.log(itemImage);
+      console.log(itemName);
+      db.query(
+        "INSERT INTO Items (userId, itemName, itemCategory, itemPrice, itemDescription, itemCount, itemImage) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+          userId,
+          itemName,
+          itemCategory,
+          itemPrice,
+          itemDescriprion,
+          itemCount,
+          itemImage,
+        ],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            res.send({ message: "error" });
+          } else {
+            res.send({ message: "success" });
+          }
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/getAllProducts/:id", (req, res) => {
+  const id = req.params.id;
+  const limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  const skip = parseInt(req.body.skip);
+
+  console.log(req.body.skip + "skip");
+  console.log(req.body.limit + "limit");
+  db.query(
+    "SELECT * FROM Items WHERE userId=? LIMIT  ?, ?",
+    [id, skip, limit],
+    (err, result) => {
+      console.log(result.length + "result in db");
+      if (err) {
+        console.log("err");
+        res.send(err + "err");
+      } else {
+        console.log(result + "result");
+        res
+          .status(200)
+          .json({ success: true, result, postSize: result.length });
       }
     }
   );

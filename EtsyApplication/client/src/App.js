@@ -19,6 +19,7 @@ import SellOnEtsy from "./components/sellOnEtsy";
 import ShopHome from "./components/shopHome";
 import { useSelector } from "react-redux";
 import userSlice, { selectUser } from "./features/userSlice";
+import CheckShopName from "./components/checkShopName";
 
 function App() {
   const user = useSelector(selectUser);
@@ -35,6 +36,7 @@ function App() {
           <Route path="/updateProfile" element={<ProfileForm />} />
           <Route path="/sellonetsy" element={<SellOnEtsy />} />
           <Route path="/shopHome" element={<ShopHome />} />
+          <Route path="/shopName" element={<CheckShopName />} />
         </Routes>
       </Router>
     </>
