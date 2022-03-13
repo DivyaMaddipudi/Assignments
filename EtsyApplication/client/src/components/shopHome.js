@@ -6,6 +6,11 @@ import { selectUser } from "../features/userSlice";
 import AddProducts from "./products/addProducts";
 import Axios from "axios";
 import { Col, Card, Row } from "antd";
+import EditProducts from "./products/editProducts";
+import EditItemImage from "./products/editItemImage";
+import SearchFeature from "./Features/searchFeature";
+import ShopHeader from "./shopHeader";
+import EditShopImage from "./products/editShopImage";
 
 function shopHome() {
   const user = useSelector(selectUser);
@@ -15,6 +20,13 @@ function shopHome() {
   const [limit, setLimit] = useState(3);
   const [showProductsAddPage, setShowProductsAddPage] = useState(false);
   const [postSize, setPostSize] = useState();
+  const [showProductsEditPage, setShowProductsEditPage] = useState(false);
+  const [productId, setProductId] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filters, setFilters] = useState("");
+  const [showShowImageEditPage, setShowShowImageEditPage] = useState(false);
+  const [shop, setShop] = useState();
+  const [shopImage, setShopImage] = useState();
 
   const addItems = () => {
     setShowProductsAddPage(true);
@@ -45,7 +57,6 @@ function shopHome() {
   const viewItems = (variables) => {
     setShowProds(true);
     console.log("---------------in view Items-------------------");
-    console.log(variables.skip + " in get all products");
     Axios.post(
       "http://localhost:4000/getAllProducts/" + user.id,
       variables
@@ -64,20 +75,53 @@ function shopHome() {
       }
     });
   };
+  const editItem = (id) => {
+    setShowProductsEditPage(true);
+    setProductId(id);
+    console.log("Item to edit" + id);
+  };
+
+  const editShopImage = () => {
+    setShowShowImageEditPage(true);
+    console.log("Edit button clicked");
+  };
+
+  const editItemImage = (id) => {
+    setShowProductsEditPage(true);
+    setProductId(id);
+    console.log("Item to edit" + id);
+  };
+
+  const updateSearchTerm = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm);
+    console.log(newSearchTerm + ".........................");
+
+    const variables = {
+      skip: 0,
+      limit: limit,
+      filters: filters,
+      searchTerm: searchTerm,
+    };
+    setSkip(0);
+    viewItems(variables);
+  };
 
   const renderCards = products.map((product) => {
     return (
       <Col
         style={{
           flex: "1",
+          // backgroundColor: "yellow",
         }}
       >
         <Card
           style={{
+            marginLeft: "5%",
+            marginBottom: "5%",
             boxShadow: "0px 0px 9px 2px black",
-            width: "80%",
+            width: "90%",
             marginTop: "20px",
-            height: "300px",
+            height: "350px",
             textAlign: "center",
             overflow: "hidden",
           }}
@@ -85,7 +129,10 @@ function shopHome() {
           cover={
             <div>
               <h2>{product.itemName}</h2>
-              <img src={require("../../Images/" + product.itemImage)} />
+              <img
+                style={{ height: "175px" }}
+                src={require("../Images/" + product.itemImage)}
+              />
             </div>
           }
         >
@@ -96,6 +143,35 @@ function shopHome() {
             title={product.itemDescription}
             description={`$${product.itemPrice}`}
           />
+          <button
+            style={{
+              marginTop: "5%",
+              width: "25%",
+              borderRadius: "4px",
+              padding: "5px",
+              marginRight: "5%",
+              backgroundColor: "gray",
+              border: "none",
+              color: "white",
+            }}
+            onClick={() => editItem(product.itemId)}
+          >
+            Edit
+          </button>
+          <button
+            style={{
+              marginTop: "5%",
+              width: "40%",
+              borderRadius: "4px",
+              padding: "5px",
+              backgroundColor: "gray",
+              border: "none",
+              color: "white",
+            }}
+            onClick={() => editItemImage(product.itemId)}
+          >
+            Edit Image
+          </button>
         </Card>
       </Col>
     );
@@ -106,29 +182,9 @@ function shopHome() {
       <Navbar />
       <Hoverbar />
       <hr></hr>
-      <div className="shophome_header">
-        <div className="shop_details">
-          <img
-            className="shop_img"
-            src="https://images.pexels.com/photos/11376531/pexels-photo-11376531.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-          ></img>
-          <div className="shop_info">
-            <h3 className="shop_name">SunnySelfCare</h3>
-            <p>0 sales </p>
-            <button className="editshop_btn" type="submit">
-              Edit shop
-            </button>
-          </div>
-        </div>
-        <div className="owner_details">
-          <h6 style={{ fontSize: "18px" }}>SHOP OWNER</h6>
-          <img
-            style={{ width: "30%", borderRadius: "50%", height: "100px" }}
-            src="https://images.pexels.com/photos/11376531/pexels-photo-11376531.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-          ></img>
-          <h5>{user.name}</h5>
-        </div>
-      </div>
+
+      <ShopHeader />
+
       <div className="shop_items">
         <div>
           <button
@@ -144,6 +200,16 @@ function shopHome() {
           >
             Add More Items..!
           </button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: "10%",
+            marginTop: "-3.5%",
+          }}
+        >
+          <SearchFeature refreshFunction={updateSearchTerm} />
         </div>
         <div>
           <div style={{ width: "75%", margin: "3rem auto" }}>
@@ -203,6 +269,18 @@ function shopHome() {
 
       {showProductsAddPage && (
         <AddProducts setShowProductsAddPage={setShowProductsAddPage} />
+      )}
+
+      {showProductsEditPage && (
+        <EditItemImage
+          setShowProductsEditPage={setShowProductsEditPage}
+          products={products}
+          itemId={productId}
+        />
+      )}
+
+      {showShowImageEditPage && (
+        <EditShopImage showShowImageEditPage={setShowShowImageEditPage} />
       )}
     </div>
   );

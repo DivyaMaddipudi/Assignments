@@ -13,12 +13,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ProfileList from "./profileList";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
+import SearchBar from "./searchBar";
+import Axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const [showSignIn, setshowSignIn] = useState(false);
   const [showProfileLists, setShowProfileLists] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
+  const [Skip, setSkip] = useState(0);
+  const [limit, setLimit] = useState(0);
 
   const popUpSignIn = () => {
     setshowSignIn(true);
@@ -29,7 +35,7 @@ function Navbar() {
   };
 
   let navLogin = null;
-  if (user) {
+  if (user && cookie.load("user")) {
     console.log("Able to read cookie");
     console.log(cookie.load("user"));
     navLogin = (
@@ -66,13 +72,49 @@ function Navbar() {
   // if (!cookie.load("user")) {
   //   redirectVar = <Navigate to="/home" />;
   // }
+
+  const updateSearchTerm = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm);
+    console.log(newSearchTerm + ".........................");
+
+    const variables = {
+      skip: Skip,
+      limit: limit,
+      searchTerm: searchTerm,
+    };
+    viewItems(variables);
+  };
+
+  const viewItems = (variables) => {
+    // setShowProds(true);
+    console.log("---------------in view Items-------------------");
+    Axios.post("http://localhost:4000/getAllProducts/1", variables).then(
+      (response) => {
+        if (response.data.success) {
+          if (variables.loadMore) {
+            setProducts([...products, ...response.data.result]);
+            console.log(products);
+          } else {
+            setProducts(response.data.result);
+          }
+          // setPostSize(response.data.postSize);
+          // console.log(response.data.postSize + "Postsize in getallProducts");
+        } else {
+          console.log("Failed in ");
+        }
+      }
+    );
+  };
+
   return (
     <div>
       {/* {redirectVar} */}
       <header className="navBar">
         <h2 className="logo">Etsy</h2>
-        <input type="text" id="searchBar" className="searchBar"></input>
-
+        <SearchBar
+          placeholder="Search for anything"
+          refreshFunction={updateSearchTerm}
+        />
         {navLogin}
       </header>
       {showSignIn && <Signin setshowSignIn={setshowSignIn} />}

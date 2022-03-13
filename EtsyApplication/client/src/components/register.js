@@ -1,19 +1,34 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { login, registerUser, activeShop } from "../features/userSlice";
 
 function register({ setShowRegister }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  const addUser = () => {
+  const addUser = (e) => {
+    e.preventDefault();
     Axios.post("http://localhost:4000/register", {
       email: email,
       username: username,
       password: password,
     }).then((response) => {
-      console.log("Success: " + response);
+      if (response.data.success === true) {
+        console.log("Success========: " + response.data.success);
+
+        dispatch(
+          registerUser({
+            username: username,
+            email: email,
+          })
+        );
+        console.log("In frontend register");
+
+        window.location.pathname = "/home";
+      }
     });
   };
 
@@ -87,8 +102,4 @@ function register({ setShowRegister }) {
   );
 }
 
-const registerUser = (dispatch) => ({
-  register: (isRegister) => dispatch(register(isRegister)),
-});
-
-export default connect(null, registerUser)(register);
+export default register;

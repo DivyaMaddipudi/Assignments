@@ -21,7 +21,7 @@ const app = express();
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
 );
@@ -72,7 +72,7 @@ const db = mysql.createConnection({
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../client/Images");
+    cb(null, "../client/src/Images");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
@@ -112,7 +112,7 @@ app.post("/register", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Values Inserted");
+        res.send({ success: true, result });
       }
     }
   );
@@ -281,25 +281,180 @@ app.post("/getAllProducts/:id", (req, res) => {
   const id = req.params.id;
   const limit = req.body.limit ? parseInt(req.body.limit) : 100;
   const skip = parseInt(req.body.skip);
+  const term = req.body.searchTerm;
+  // console.log(req.body.skip + "skip");
+  // console.log(req.body.limit + "limit");
+  console.log("In get all prods");
+  console.log(term);
 
-  console.log(req.body.skip + "skip");
-  console.log(req.body.limit + "limit");
+  if (term) {
+    console.log("In term");
+    db.query(
+      // SELECT * FROM test_schema.Items WHERE itemName LIKE "%Rice%" AND userId=1;
+      `SELECT * FROM Items WHERE itemName LIKE "%${term}%" AND userId=? LIMIT  ?, ?`,
+      [id, skip, limit],
+      (err, result) => {
+        if (err) {
+          // console.log(result + "result in db");
+
+          res.send(err + "err");
+          console.log(err);
+        } else {
+          console.log("Out term");
+
+          console.log(result + "result");
+          res
+            .status(200)
+            .json({ success: true, result, postSize: result.length });
+        }
+      }
+    );
+  } else {
+    db.query(
+      "SELECT * FROM Items WHERE userId=? LIMIT  ?, ?",
+      [id, skip, limit],
+      (err, result) => {
+        console.log(result.length + "result in db");
+        if (err) {
+          console.log("err");
+          res.send(err + "err");
+        } else {
+          console.log(result + "result");
+          res
+            .status(200)
+            .json({ success: true, result, postSize: result.length });
+        }
+      }
+    );
+  }
+});
+
+app.get("/getItemById/:itemId", (req, res) => {
+  const id = req.params.itemId;
+  db.query("SELECT * FROM Items WHERE itemId=?", id, (err, result) => {
+    console.log(result);
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.put("/updateItemById/:itemId", (req, res) => {
+  const id = req.params.itemId;
+  // const userId = req.params.id;
+  const itemName = req.body.itemName;
+  const itemDescriprion = req.body.itemDescription;
+  const itemPrice = req.body.itemPrice;
+  const itemCount = req.body.itemCount;
+  const itemCategory = req.body.itemCategory;
+
+  console.log("In update item post");
+  console.log(itemDescriprion);
+  console.log(itemName);
+  console.log(id);
+
   db.query(
-    "SELECT * FROM Items WHERE userId=? LIMIT  ?, ?",
-    [id, skip, limit],
+    "UPDATE Items SET itemName=?, itemPrice=?, itemDescription=?, itemCount=?, itemCategory=? WHERE itemId=?",
+    [itemName, itemPrice, itemDescriprion, itemCount, itemCategory, id],
     (err, result) => {
-      console.log(result.length + "result in db");
+      console.log(result.itemName);
       if (err) {
-        console.log("err");
-        res.send(err + "err");
+        console.log(err);
+        res.send(err);
       } else {
-        console.log(result + "result");
-        res
-          .status(200)
-          .json({ success: true, result, postSize: result.length });
+        res.send({ success: true, result });
       }
     }
   );
+});
+
+app.put("/updateItemImageById/:itemId", (req, res) => {
+  try {
+    let upload = multer({ storage: storage }).single("itemImage");
+    upload(req, res, function (err) {
+      if (!req.file) {
+        return res.send("Please select an image to upload");
+      } else if (err instanceof multer.MulterError) {
+        return res.send(err);
+      } else if (err) {
+        return res.send(err);
+      }
+
+      const id = req.params.itemId;
+      const itemImage = req.file.filename;
+      console.log("In update item post");
+      console.log(id);
+      console.log(itemImage);
+      db.query(
+        "UPDATE Items SET itemImage=? WHERE itemId=?",
+        [itemImage, id],
+        (err, result) => {
+          console.log(result);
+          if (err) {
+            console.log(err);
+            res.send(err);
+          } else {
+            res.send({ success: true, result });
+          }
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/getShopById/:userId", (req, res) => {
+  console.log("In get shop by id");
+  const userId = req.params.userId;
+  db.query("SELECT * FROM Users WHERE id=?", userId, (err, result) => {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    } else {
+      console.log(result);
+      res.send({ success: true, result });
+    }
+  });
+});
+
+app.put("/updateShopImageById/:id", (req, res) => {
+  console.log("In edit shop details put method");
+  try {
+    let upload = multer({ storage: storage }).single("itemImage");
+    upload(req, res, function (err) {
+      if (!req.file) {
+        return res.send("Please select an image to upload");
+      } else if (err instanceof multer.MulterError) {
+        return res.send(err);
+      } else if (err) {
+        return res.send(err);
+      }
+
+      const userId = req.params.id;
+      const shopImage = req.file.filename;
+
+      console.log("In update shop post ----------------------");
+      console.log(shopImage);
+
+      db.query(
+        "UPDATE Users SET shopImage=? WHERE id=?",
+        [shopImage, userId],
+        (err, result) => {
+          if (err) {
+            console.log(err + "err");
+            res.send(err);
+          } else {
+            res.send({ success: true, result });
+          }
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 const PORT = process.env.PORT || 4000;

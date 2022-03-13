@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     profilePic: {
       type: DataTypes.STRING,
-      allowNull: true,
     },
     shopName: {
       type: DataTypes.STRING,
@@ -41,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     shopImage: {
       type: DataTypes.STRING,
-      allowNull: true,
     },
   });
   return Users;
