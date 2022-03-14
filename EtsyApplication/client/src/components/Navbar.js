@@ -73,38 +73,38 @@ function Navbar() {
   //   redirectVar = <Navigate to="/home" />;
   // }
 
-  const updateSearchTerm = (newSearchTerm) => {
-    setSearchTerm(newSearchTerm);
-    console.log(newSearchTerm + ".........................");
+  // const updateSearchTerm = (newSearchTerm) => {
+  //   setSearchTerm(newSearchTerm);
+  //   console.log(newSearchTerm + ".........................");
 
-    const variables = {
-      skip: Skip,
-      limit: limit,
-      searchTerm: searchTerm,
-    };
-    viewItems(variables);
-  };
+  //   const variables = {
+  //     skip: Skip,
+  //     limit: limit,
+  //     searchTerm: searchTerm,
+  //   };
+  //   viewItems(variables);
+  // };
 
-  const viewItems = (variables) => {
-    // setShowProds(true);
-    console.log("---------------in view Items-------------------");
-    Axios.post("http://localhost:4000/getAllProducts/1", variables).then(
-      (response) => {
-        if (response.data.success) {
-          if (variables.loadMore) {
-            setProducts([...products, ...response.data.result]);
-            console.log(products);
-          } else {
-            setProducts(response.data.result);
-          }
-          // setPostSize(response.data.postSize);
-          // console.log(response.data.postSize + "Postsize in getallProducts");
-        } else {
-          console.log("Failed in ");
-        }
-      }
-    );
-  };
+  // const viewItems = (variables) => {
+  //   // setShowProds(true);
+  //   console.log("---------------in view Items-------------------");
+  //   Axios.post("http://localhost:4000/getAllProducts/1", variables).then(
+  //     (response) => {
+  //       if (response.data.success) {
+  //         if (variables.loadMore) {
+  //           setProducts([...products, ...response.data.result]);
+  //           console.log(products);
+  //         } else {
+  //           setProducts(response.data.result);
+  //         }
+  //         // setPostSize(response.data.postSize);
+  //         // console.log(response.data.postSize + "Postsize in getallProducts");
+  //       } else {
+  //         console.log("Failed in ");
+  //       }
+  //     }
+  //   );
+  // };
 
   return (
     <div>
@@ -113,7 +113,7 @@ function Navbar() {
         <h2 className="logo">Etsy</h2>
         <SearchBar
           placeholder="Search for anything"
-          refreshFunction={updateSearchTerm}
+          // refreshFunction={updateSearchTerm}
         />
         {navLogin}
       </header>

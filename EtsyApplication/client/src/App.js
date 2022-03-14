@@ -20,6 +20,8 @@ import ShopHome from "./components/shopHome";
 import { useSelector } from "react-redux";
 import userSlice, { selectUser } from "./features/userSlice";
 import CheckShopName from "./components/checkShopName";
+import SearchResultItems from "./components/searchResultItems";
+import ShopHomeByOther from "./components/shopHomeByOther";
 
 function App() {
   const user = useSelector(selectUser);
@@ -37,6 +39,8 @@ function App() {
           <Route path="/sellonetsy" element={<SellOnEtsy />} />
           <Route path="/shopHome" element={<ShopHome />} />
           <Route path="/shopName" element={<CheckShopName />} />
+          <Route path="/searchResults" element={<SearchResultItems />} />
+          <Route path="/shopHomeForOthers" element={<ShopHomeByOther />} />
         </Routes>
       </Router>
     </>

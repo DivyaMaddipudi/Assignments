@@ -13,7 +13,7 @@ import EditShopImage from "./products/editShopImage";
 import { getProducts } from "../features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-function shopHome() {
+function shopHomeByOther() {
   const user = useSelector(selectUser);
   const product = useSelector(getProducts);
   const [products, setProducts] = useState([]);
@@ -29,11 +29,6 @@ function shopHome() {
   const [showShowImageEditPage, setShowShowImageEditPage] = useState(false);
   const [shop, setShop] = useState();
   const [shopImage, setShopImage] = useState();
-  const [userId, setUserId] = useState(0);
-
-  const addItems = () => {
-    setShowProductsAddPage(true);
-  };
 
   useEffect(() => {
     const variables = {
@@ -61,7 +56,7 @@ function shopHome() {
     setShowProds(true);
     console.log("---------------in view Items-------------------");
     Axios.post(
-      "http://localhost:4000/getAllProducts/" + user.id,
+      "http://localhost:4000/getAllProducts/" + product.userId,
       variables
     ).then((response) => {
       if (response.data.success) {
@@ -72,7 +67,7 @@ function shopHome() {
           setProducts(response.data.result);
         }
         setPostSize(response.data.postSize);
-        console.log(user.id);
+        console.log(product.userId + " if ");
 
         console.log(response.data.postSize + "Postsize in getallProducts");
       } else {
@@ -93,7 +88,7 @@ function shopHome() {
   };
 
   const editItemImage = (id) => {
-    setShowShowImageEditPage(true);
+    setShowProductsEditPage(true);
     setProductId(id);
     console.log("Item to edit" + id);
   };
@@ -149,23 +144,9 @@ function shopHome() {
       <Navbar />
       <Hoverbar />
       <hr></hr>
+      {product.userId === user.id ? "true" : "false"}
       <ShopHeader />
       <div className="shop_items">
-        <div>
-          <button
-            style={{
-              marginLeft: "7.5%",
-              padding: "10px",
-              width: "25%",
-              backgroundColor: "gray",
-              border: "none",
-              color: "white",
-            }}
-            onClick={addItems}
-          >
-            Add More Items..!
-          </button>
-        </div>
         <div
           style={{
             display: "flex",
@@ -221,7 +202,7 @@ function shopHome() {
         <AddProducts setShowProductsAddPage={setShowProductsAddPage} />
       )}
       {showProductsEditPage && (
-        <EditProducts
+        <EditItemImage
           setShowProductsEditPage={setShowProductsEditPage}
           products={products}
           itemId={productId}
@@ -234,4 +215,4 @@ function shopHome() {
   );
 }
 
-export default shopHome;
+export default shopHomeByOther;

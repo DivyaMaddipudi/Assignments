@@ -457,6 +457,24 @@ app.put("/updateShopImageById/:id", (req, res) => {
   }
 });
 
+app.get("/getSearchItems/:searchValue", (req, res) => {
+  console.log("get Search Items -------------------------------");
+  const searchValue = req.params.searchValue;
+  console.log(searchValue);
+
+  db.query(
+    `SELECT * FROM Items WHERE itemName REGEXP '${searchValue}'`,
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
 const PORT = process.env.PORT || 4000;
 models.sequelize.sync().then(() => {
   app.listen(PORT, () => {

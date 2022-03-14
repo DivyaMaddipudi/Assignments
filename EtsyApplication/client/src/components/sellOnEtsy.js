@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { selectShop, selectUser } from "../features/userSlice";
 
 function sellOnEtsy() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const user = useSelector(selectUser);
   const shop = useSelector(selectShop);

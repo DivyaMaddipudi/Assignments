@@ -2,6 +2,11 @@
   margin: 0px;
   padding: 0px;
 }
+
+body {
+  overflow-x: hidden;
+}
+
 .navBar {
   width: 100%;
   height: 10vh;
@@ -26,6 +31,8 @@
   max-height: 8vh;
   margin-top: 9px;
   margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .search_form > .searchBar {
@@ -38,6 +45,27 @@
   background-color: rgb(243, 234, 223);
   font-size: 20px;
   padding-left: 15px;
+}
+
+.searchBtn {
+  margin-top: 5px;
+  width: 5%;
+  height: 30px;
+  /* visibility: hidden; */
+  /* background-color: green; */
+  border: none;
+  background-color: rgb(243, 234, 223);
+  /* margin-left: -50%; */
+  position: relative;
+  left: -6%;
+  top: 5%;
+  display: inline-block;
+}
+
+.searchIcon {
+  margin-top: -70%;
+  margin-left: -20%;
+  display: inline-block;
 }
 
 .icons {
@@ -257,6 +285,7 @@
   justify-content: end;
   top: 8%;
   right: 5%;
+  z-index: 5;
   /* justify-content: center;
   align-items: center; */
 }
