@@ -21,6 +21,8 @@ function searchResultItems() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100);
   const [filterByValue, setFilterByValue] = useState(false);
+  const [outOfStock, setOutOfStock] = useState(false);
+
   let filteredProducts = null;
   const filterByPrice = () => {
     if (minPrice !== 0 && maxPrice !== 100) {
@@ -133,6 +135,19 @@ function searchResultItems() {
           </form>
         </div>
       </div>
+      {/* 
+      <input
+        type="checkbox"
+        checked={checked}
+        id="count"
+        name="count"
+        value="count"
+        onChange={(event) => {
+          setOutOfStock(event.target.value);
+        }}
+      />
+      <label for="count">Out of stock</label>
+      <br></br> */}
 
       <div style={{ marginLeft: "80%" }}>
         Sort by: &nbsp;
