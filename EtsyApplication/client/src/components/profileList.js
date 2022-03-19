@@ -9,7 +9,11 @@ import cookie from "react-cookies";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
-import { removeProductsState } from "../features/productsSlice";
+import {
+  removeAllItemsFromHome,
+  removeFavouritesList,
+  removeProductsState,
+} from "../features/productsSlice";
 
 function profileList({ setShowProfileLists }) {
   const navigate = useNavigate();
@@ -33,10 +37,12 @@ function profileList({ setShowProfileLists }) {
     console.log("In sign out");
     dispatch(logout());
     dispatch(removeProductsState());
+    dispatch(removeFavouritesList());
+    // dispatch(removeAllItemsFromHome());
     console.log("In sign out 1");
     // navigate("/");
-    window.location.pathname = "/";
     cookie.remove("user", { path: "/" });
+    window.location.pathname = "/";
   };
 
   // let redirectVar = null;

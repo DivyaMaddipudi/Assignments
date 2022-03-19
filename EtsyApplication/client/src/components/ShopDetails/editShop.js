@@ -6,14 +6,14 @@ import CloseLogin from "../closeLogin";
 
 function editShop({ editShopPage, userId }) {
   const user = useSelector(selectUser);
-  const [itemImage, setItemImage] = useState("");
+  const [shopImage, setShopImage] = useState("");
   const [shopName, setShopName] = useState("");
 
   const editShopDetails = (e) => {
     e.preventDefault();
     console.log("Update form image");
     const formData = new FormData();
-    formData.append("itemImage", itemImage);
+    formData.append("shopImage", shopImage);
     Axios.put(
       "http://localhost:4000/updateShopImageById/" + userId,
       formData
@@ -56,7 +56,7 @@ function editShop({ editShopPage, userId }) {
               className="shop_image"
               id="shop_image"
               onChange={(event) => {
-                setItemImage(event.target.files[0]);
+                setShopImage(event.target.files[0]);
               }}
               required
             />

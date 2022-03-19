@@ -14,7 +14,6 @@ import Register from "./components/register";
 import WelcomePage from "./components/welcomePage";
 import Navbar from "./components/Navbar";
 import ProfilePage from "./components/profilePage";
-import ProfileForm from "./components/profileForm";
 import SellOnEtsy from "./components/sellOnEtsy";
 import ShopHome from "./components/shopHome";
 import { useSelector } from "react-redux";
@@ -22,6 +21,12 @@ import userSlice, { selectUser } from "./features/userSlice";
 import CheckShopName from "./components/checkShopName";
 import SearchResultItems from "./components/searchResultItems";
 import ShopHomeByOther from "./components/shopHomeByOther";
+import ProfileForm from "./components/profileForm";
+import ProfileDashboard from "./components/profileDashboard";
+import ProductOverView from "./components/ProductOverView";
+// import CartScreen from "./components/CartScreen";
+import Cart from "./components/Cart";
+import Purchases from "./components/Purchases";
 
 function App() {
   const user = useSelector(selectUser);
@@ -41,6 +46,11 @@ function App() {
           <Route path="/shopName" element={<CheckShopName />} />
           <Route path="/searchResults" element={<SearchResultItems />} />
           <Route path="/shopHomeForOthers" element={<ShopHomeByOther />} />
+          <Route path="/profileDashboard" element={<ProfileDashboard />} />
+          <Route path="/profileForm" element={<ProfileForm />} />
+          <Route path="/productOverview" element={<ProductOverView />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/purchase" element={<Purchases />} />
         </Routes>
       </Router>
     </>

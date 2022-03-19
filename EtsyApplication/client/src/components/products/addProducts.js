@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import CloseLogin from "../closeLogin";
+import CategoryComponent from "./CategoryComponent";
 
 function addProducts({ setShowProductsAddPage }) {
   const user = useSelector(selectUser);
@@ -12,6 +13,8 @@ function addProducts({ setShowProductsAddPage }) {
   const [itemDescription, setItemDescription] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [itemCount, setItemCount] = useState(0);
+  const [itemNewCategory, setItemNewCategory] = useState("");
+  const [newCategoryVisible, setNewCategoryVisible] = useState(false);
 
   const addItem = (e) => {
     e.preventDefault();
@@ -21,7 +24,12 @@ function addProducts({ setShowProductsAddPage }) {
     formData.append("itemDescription", itemDescription);
     formData.append("itemPrice", itemPrice);
     formData.append("itemCount", itemCount);
-    formData.append("itemCategory", itemCategory);
+    if (itemCategory === "others") {
+      formData.append("itemCategory", itemNewCategory);
+    } else {
+      formData.append("itemCategory", itemCategory);
+    }
+    // console.log(itemImage);
     // const itemDetails = {
     //   itemName: itemName,
     //   itemDescription: itemDescription,
@@ -35,15 +43,34 @@ function addProducts({ setShowProductsAddPage }) {
       console.warn(response);
       if (response.data.message === "success") {
         console.log("Image uploaded successfully");
+        // window.location.pathname = "/shopHome";
       }
     });
-
     setShowProductsAddPage(false);
+  };
+
+  const enableNewCategory = () => {
+    if (itemCategory === "others") {
+      console.log("Others");
+      setNewCategoryVisible(true);
+    } else {
+      console.log("Not others");
+      setNewCategoryVisible(false);
+    }
   };
 
   return (
     <div className="bg-modal">
-      <div className="modal-content">
+      <div
+        className="modal-content"
+        style={{
+          maxWidth: "450px",
+          height: "650px",
+          backgroundColor: "white",
+          borderRadius: "20px !important",
+          position: "relative",
+        }}
+      >
         <CloseLogin setshowSignIn={setShowProductsAddPage} />
         <h2 className="addProd_title">Add product</h2>
         <form
@@ -73,6 +100,7 @@ function addProducts({ setShowProductsAddPage }) {
               onChange={(event) => {
                 setItemCategory(event.target.value);
               }}
+              // onClick={enableNewCategory}
               style={{
                 width: "90%",
                 height: "40px",
@@ -87,6 +115,25 @@ function addProducts({ setShowProductsAddPage }) {
               <option value="others">Others</option>
             </select>
           </div>
+
+          {/* category component */}
+          {itemCategory === "others" && (
+            <div className="htmlForm-group">
+              <label htmlFor="item_category">Item Category</label>
+              <br />
+              <input
+                type="text"
+                className="item_category"
+                id="item_category"
+                placeholder="Item Category"
+                onChange={(event) => {
+                  setItemNewCategory(event.target.value);
+                }}
+                required
+              />
+            </div>
+          )}
+          <h1>{itemCategory}</h1>
 
           <div className="htmlForm-group">
             <label htmlFor="item_image">Item Image</label>

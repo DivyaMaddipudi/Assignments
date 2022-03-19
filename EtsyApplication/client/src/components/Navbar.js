@@ -34,13 +34,21 @@ function Navbar() {
     setShowProfileLists(true);
   };
 
+  const showFavourites = () => {
+    window.location.pathname = "/profile";
+  };
+
+  const handleOpenCart = () => {
+    window.location.pathname = "/cart";
+  };
+
   let navLogin = null;
   if (user && cookie.load("user")) {
     console.log("Able to read cookie");
     console.log(cookie.load("user"));
     navLogin = (
       <ul className="icons">
-        <li>
+        <li onClick={showFavourites}>
           <FavoriteBorderSharp />
         </li>
         <li>
@@ -50,7 +58,7 @@ function Navbar() {
           <Person />
         </li>
         <li>
-          <ShoppingCart />
+          <ShoppingCart onClick={handleOpenCart} />
         </li>
       </ul>
     );
@@ -110,7 +118,9 @@ function Navbar() {
     <div>
       {/* {redirectVar} */}
       <header className="navBar">
-        <h2 className="logo">Etsy</h2>
+        <a style={{ marginLeft: "3%", textDecoration: "none" }} href="/home">
+          <h2 className="logo">Etsy</h2>
+        </a>
         <SearchBar
           placeholder="Search for anything"
           // refreshFunction={updateSearchTerm}

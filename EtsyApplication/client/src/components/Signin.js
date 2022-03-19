@@ -47,6 +47,12 @@ function Signin({ setshowSignIn }) {
               name: response.data[0].name,
               shopName: response.data[0].shopName,
               dob: response.data[0].dob,
+              gender: response.data[0].gender,
+              city: response.data[0].city,
+              phoneNumber: response.data[0].phoneNumber,
+              profilePic: response.data[0].profilePic,
+              about: response.data[0].about,
+              shopImage: response.data[0].shopImage,
               loggedIn: true,
             })
           );

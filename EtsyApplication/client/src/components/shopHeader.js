@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getProducts } from "../features/productsSlice";
 import { selectUser } from "../features/userSlice";
-import EditShop from "./ShopDetails/editShop";
-// import Images from "../Images";
+// import EditShop from "./ShopDetails/editShop";
+import EditShopImage from "./products/editShopImage";
 
 function shopHeader() {
   const user = useSelector(selectUser);
@@ -38,11 +38,15 @@ function shopHeader() {
     console.log("In edit shop details");
   };
 
-  let editButton = null;
-  if (product !== null) {
-    if (user.id === product.userId) {
-      editButton = (
-        <>
+  return (
+    <div className="shophome_header">
+      {/* {shopImage} */}
+      <div className="shop_details">
+        <img width="180px" src={"/Images/" + shopImage} alt="shop"></img>
+        <div className="shop_info">
+          <h3 className="shop_name">{shopName}</h3>
+          <p> 10 Sales </p>
+          {/* {editButton} */}
           <button
             onClick={() => editShopDetails(user.id)}
             id="imgupload"
@@ -51,47 +55,18 @@ function shopHeader() {
           >
             Edit shop
           </button>
-        </>
-      );
-    } else {
-      editButton = <></>;
-    }
-  } else {
-    editButton = (
-      <>
-        <button
-          onClick={() => editShopDetails(user.id)}
-          id="imgupload"
-          className="editshop_btn"
-          type="submit"
-        >
-          Edit shop
-        </button>
-      </>
-    );
-  }
-
-  return (
-    <div className="shophome_header">
-      <div className="shop_details">
-        {/* {`../Images/${shopImage}`} */}
-        <img width="50px" src={"../Images/" + shopImage} alt="shop"></img>
-        <div className="shop_info">
-          <h3 className="shop_name">{shopName}</h3>
-          <p> 10 Sales </p>
-          {editButton}
         </div>
       </div>
       <div className="owner_details">
         <h6 style={{ fontSize: "18px" }}>SHOP OWNER</h6>
         <img
           style={{ width: "30%", borderRadius: "50%", height: "100px" }}
-          src="https://images.pexels.com/photos/11376531/pexels-photo-11376531.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          src={"/Users/Images/" + user.profilePic}
         ></img>
         <h5>{userName}</h5>
       </div>
       {editShopPage && (
-        <EditShop editShopPage={setEditShopPage} userId={userId} />
+        <EditShopImage editShopPage={setEditShopPage} userId={userId} />
       )}
     </div>
   );

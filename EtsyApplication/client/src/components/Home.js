@@ -2,15 +2,23 @@ import React from "react";
 import Navbar from "./Navbar";
 import Hoverbar from "./Hoverbar";
 import Dashboard from "./Dashboard";
-import { UserContext } from "../Helper/Context";
+import Footer from "./Footer";
+import EtsyBody from "./EtsyBody";
+import AboutFooter from "./AboutFooter";
+import FooterBanner from "./FooterBanner";
 
-const Home = ({ name }) => {
+const Home = () => {
   return (
     <div>
-      <h1>{name}</h1>
       <Navbar />
       <Hoverbar />
       <Dashboard />
+      <EtsyBody />
+
+      <AboutFooter />
+
+      <Footer />
+      <FooterBanner />
     </div>
   );
 };

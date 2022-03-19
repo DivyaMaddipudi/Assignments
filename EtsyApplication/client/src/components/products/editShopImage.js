@@ -4,8 +4,8 @@ import userSlice, { selectUser } from "../../features/userSlice";
 import CloseLogin from "../closeLogin";
 import Axios from "axios";
 
-const editShopImage = ({ showShowImageEditPage }) => {
-  const [itemImage, setItemImage] = useState("");
+const editShopImage = ({ editShopPage }) => {
+  const [shopImage, setShopImage] = useState("");
   const [product, setProduct] = useState();
   const [productExist, setProductExist] = useState(false);
   const user = useSelector(selectUser);
@@ -13,17 +13,20 @@ const editShopImage = ({ showShowImageEditPage }) => {
   const editImage = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("itemImage", itemImage);
+    formData.append("shopImage", shopImage);
     console.log("Inedit client axios");
     Axios.put(
       "http://localhost:4000/updateShopImageById/" + user.id,
       formData
     ).then((response) => {
       if (response.data.success) {
+        console.log(response);
+        // setShopImage(shopImage);
         console.log("Item details edited successfully.....");
+        window.location.pathname = "/shopHome";
       }
     });
-    showShowImageEditPage(false);
+    editShopPage(false);
   };
 
   useEffect(() => {
@@ -34,10 +37,10 @@ const editShopImage = ({ showShowImageEditPage }) => {
     Axios.get("http://localhost:4000/getShopById/" + user.id).then(
       (response) => {
         if (response) {
-          console.log(response.data);
-          setItemImage(response.data.result[0].shopImage);
-          setProductExist(true);
-          console.log("Products stored in product");
+          console.log(response.data.result[0].shopImage);
+          setShopImage(response.data.result[0].shopImage);
+          // setProductExist(true);
+          console.log("Products stored in get shop by id");
         }
       }
     );
@@ -45,20 +48,20 @@ const editShopImage = ({ showShowImageEditPage }) => {
   return (
     <div className="bg-modal">
       <div className="modal-content">
-        <CloseLogin setshowSignIn={showShowImageEditPage} />
+        <CloseLogin setshowSignIn={editShopPage} />
         <h2 className="addProd_title">Add product</h2>
         <form className="items_form" encType="multipart/form-data">
           <div className="htmlForm-group">
-            <label htmlFor="item_image">Item Image</label>
+            <label htmlFor="item_image">Shop Image</label>
             <br />
             <input
               style={{ border: "none" }}
               type="file"
-              name="itemImage"
+              name="shopImage"
               className="item_image"
               id="item_image"
               onChange={(event) => {
-                setItemImage(event.target.files[0]);
+                setShopImage(event.target.files[0]);
               }}
               required
             />

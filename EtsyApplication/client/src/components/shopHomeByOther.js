@@ -144,7 +144,6 @@ function shopHomeByOther() {
       <Navbar />
       <Hoverbar />
       <hr></hr>
-      {product.userId === user.id ? "true" : "false"}
       <ShopHeader />
       <div className="shop_items">
         <div

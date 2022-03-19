@@ -22,6 +22,14 @@ export const userSlice = createSlice({
     updateUser: (state, action) => {
       state.user.shopName = action.payload.shopName;
     },
+    updateUserDetails: (state, action) => {
+      state.user.name = action.payload.name;
+      state.user.dob = action.payload.dob;
+      state.user.gender = action.payload.gender;
+      state.user.city = action.payload.city;
+      state.user.profilePic = action.payload.profilePic;
+      state.user.about = action.payload.about;
+    },
     activeShop: (state, action) => {
       state.shop = action.payload.shopName;
     },
@@ -33,6 +41,7 @@ export const {
   logout,
   activeShop,
   updateUser,
+  updateUserDetails,
   registerUser,
 } = userSlice.actions;
 

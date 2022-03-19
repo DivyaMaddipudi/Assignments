@@ -21,7 +21,7 @@ const app = express();
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -73,6 +73,25 @@ const db = mysql.createConnection({
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "../client/src/Images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+//shop storage
+const shopStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../client/public/Images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const userStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../client/public/Users/Images");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
@@ -214,8 +233,6 @@ const addProduct = async (req, res) => {
   const itemDescriprion = req.body.description;
   const itemPrice = req.body.price;
   const itemCount = req.body.count;
-
-  console.log("In add product" + itemImage + " jjjjjjj ");
 
   db.query(
     "INSERT INTO Items (userId, itemName, itemPrice, itemDescription, itemCount, itemImage) VALUES (?, ?, ?, ?, ?, ?)",
@@ -415,7 +432,7 @@ app.get("/getShopById/:userId", (req, res) => {
       console.log(err);
     } else {
       console.log(result);
-      res.send({ success: true, result });
+      res.send({ success: true, result: result });
     }
   });
 });
@@ -423,7 +440,7 @@ app.get("/getShopById/:userId", (req, res) => {
 app.put("/updateShopImageById/:id", (req, res) => {
   console.log("In edit shop details put method");
   try {
-    let upload = multer({ storage: storage }).single("itemImage");
+    let upload = multer({ storage: shopStorage }).single("shopImage");
     upload(req, res, function (err) {
       if (!req.file) {
         return res.send("Please select an image to upload");
@@ -475,9 +492,252 @@ app.get("/getSearchItems/:searchValue", (req, res) => {
   );
 });
 
+app.put("/updateUser/:id", async (req, res) => {
+  try {
+    let upload = multer({ storage: userStorage }).single("userImage");
+    upload(req, res, function (err) {
+      if (!req.file) {
+        return res.send("Please select an image to upload");
+      } else if (err instanceof multer.MulterError) {
+        return res.send(err);
+      } else if (err) {
+        return res.send(err);
+      }
+
+      const userId = req.params.id;
+      const userName = req.body.userName;
+      const gender = req.body.gender;
+      const city = req.body.city;
+      const dob = req.body.dob;
+      const userImage = req.file.filename;
+      const about = req.body.about;
+
+      console.log(userImage);
+      console.log(userName);
+      db.query(
+        "UPDATE Users set name = ?, city  = ?, dob  = ?, gender  = ?, about  = ?, profilePic=? where id = ? ",
+        [userName, city, dob, gender, about, userImage, userId],
+        (err, result) => {
+          console.log(result);
+          if (err) {
+            console.log(err);
+            res.send({ message: "error" });
+          } else {
+            res.send({ message: "success", result });
+          }
+        }
+      );
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/getItems", (req, res) => {
+  console.log("Getting all products in home");
+  db.query("SELECT * FROM Items", (err, result) => {
+    console.log(result);
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      res.send({ success: true, result });
+    }
+  });
+});
+
+app.post("/addFavourite", (req, res) => {
+  const userId = req.body.userId;
+  console.log(userId);
+  const itemId = req.body.itemId;
+  db.query(
+    "INSERT INTO Favourites (itemId, userId) VALUES (?, ?)",
+    [itemId, userId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.get("/getFavourites/:id", (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  console.log("Getting all favoutrites in home");
+  db.query(
+    "SELECT * FROM Items WHERE itemId IN (SELECT itemId FROM Favourites WHERE userId=?)",
+    [userId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.delete("/deleteFavourite/:itemId/:userId", (req, res) => {
+  const itemId = req.params.itemId;
+  const userId = req.params.userId;
+  console.log("Deleting Fav Item");
+  db.query(
+    "delete FROM Favourites WHERE itemId =? and userId =? ",
+    [itemId, userId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.post("/addCartProduct/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const items = req.body.items;
+  const orderId = req.body.orderId;
+  const price = req.body.price;
+
+  db.query(
+    "INSERT INTO Carts (items, orderId, price, userId) VALUES (?, ?, ?, ?)",
+    [items, orderId, price, userId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.get("/getFinalCartProducts/:userId", (req, res) => {
+  const userId = req.params.userId;
+  console.log("Getting cart products in cart");
+  db.query(
+    "SELECT * FROM Items WHERE itemId IN (SELECT itemId FROM Carts WHERE userId=?)",
+
+    [userId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.put("/updateCartQuantity/:userId", (req, res) => {
+  const userId = req.params.userId;
+  // const userId = req.params.id;
+  const itemId = req.body.itemId;
+  const qty = req.body.qty;
+
+  console.log("In update cart");
+  console.log(itemId);
+  console.log(qty);
+  // console.log(id);
+
+  db.query(
+    "UPDATE Carts SET qty = ? WHERE itemId=? AND userId = ?",
+    [qty, itemId, userId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.get("/getQtyFromCart/:userid/:itemId", (req, res) => {
+  const userId = req.params.userid;
+  const itemId = req.params.itemId;
+  console.log("Getting all cart products in home");
+  db.query(
+    "select qty from Carts where userId=? AND itemId=?",
+    [userId, itemId],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+app.get("/getPurchases/:UserId", (req, res) => {
+  const userid = req.params.UserId;
+  console.log("Get purchased items");
+  db.query(
+    "SELECT * FROM Carts WHERE userId=? order by cartId desc limit 0, 1 ",
+    [userid],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
+app.put("/updateItemById/:itemId", (req, res) => {
+  const id = req.params.itemId;
+  // const userId = req.params.id;
+  const itemName = req.body.itemName;
+  const itemDescriprion = req.body.itemDescription;
+  const itemPrice = req.body.itemPrice;
+  const itemCount = req.body.itemCount;
+  const itemCategory = req.body.itemCategory;
+
+  console.log("In update item post");
+  console.log(itemDescriprion);
+  console.log(itemName);
+  console.log(id);
+
+  db.query(
+    "UPDATE Items SET itemName=?, itemPrice=?, itemDescription=?, itemCount=?, itemCategory=? WHERE itemId=?",
+    [itemName, itemPrice, itemDescriprion, itemCount, itemCategory, id],
+    (err, result) => {
+      console.log(result.itemName);
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
 const PORT = process.env.PORT || 4000;
 models.sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log("Serving running on port 4000");
   });
 });
+
+module.exports = app;

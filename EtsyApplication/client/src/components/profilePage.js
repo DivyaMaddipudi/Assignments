@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom";
 function profilePage() {
   const user = useSelector(selectUser);
   let redirectVar = null;
+
   if (!user) {
     console.log("cookie is found " + user);
     redirectVar = <Navigate to="/home" />;
