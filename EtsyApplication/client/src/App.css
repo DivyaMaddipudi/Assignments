@@ -30,6 +30,7 @@ body {
 }
 
 .logo {
+  font-family: "Times New Roman", Times, serif;
   margin-left: 4%;
   color: rgb(255, 81, 0);
   font-size: 40px;
@@ -43,13 +44,13 @@ body {
   height: 6vh;
   max-height: 8vh;
   margin-top: 9px;
-  margin-left: 20px;
+  margin-left: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 .search_form > .searchBar {
-  width: 100%;
+  width: 200%;
   /* margin-top: 10px; */
   height: 6vh;
   max-height: 8vh;
@@ -61,23 +62,26 @@ body {
 }
 
 .searchBtn {
-  margin-top: 5px;
+  /* margin-top: 5px; */
   width: 5%;
   height: 30px;
   /* visibility: hidden; */
   /* background-color: green; */
   border: none;
+  /* background-color: red; */
   background-color: rgb(243, 234, 223);
   /* margin-left: -50%; */
   position: relative;
-  left: -6%;
-  top: 5%;
+  left: -4%;
+  top: 16%;
   display: inline-block;
 }
 
 .searchIcon {
-  margin-top: -70%;
+  margin-top: -110%;
   margin-left: -20%;
+  position: relative;
+  top: 0;
   display: inline-block;
 }
 
@@ -118,8 +122,9 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.sectionItems_list:hover {
+.sectionItems_list > li:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .dash_board {
@@ -132,7 +137,9 @@ body {
 .title {
   padding-top: 20px;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Guardian-EgypTT", Charter, "Charter Bitstream", Cambria,
+    "Noto Serif Light", "Droid Serif", Georgia, serif;
+  font-size: 35px;
   font-weight: 500;
 }
 .dashboard_items {
@@ -141,6 +148,27 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+/* .dashboard_image:hover {
+  background-color: red;
+} */
+
+.dashboard_item > img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.5s;
+
+  /* animation-delay: 150ms; */
+  /* background-color: red; */
+}
+
+.dashboard_item > img:hover + h3 {
+  cursor: pointer;
+  text-decoration: underline;
+
+  /* animation-delay: 150ms; */
+  /* background-color: red; */
+}
+
 .dashboard_item > img {
   width: 100px;
   border-radius: 50%;
@@ -231,6 +259,15 @@ body {
   margin-top: 15px;
   width: 99%;
   background-color: black;
+  border-radius: 100px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.googleauth_btn {
+  margin-top: 15px;
+  margin-left: 18px;
+  width: 90%;
   border-radius: 100px;
   height: 50px;
   border: 1px solid black;
@@ -574,7 +611,7 @@ body {
   margin-top: 5%;
   text-align: center;
   margin-bottom: 5px;
-  color: orange;
+  color: black;
 }
 
 .items_form > .htmlForm-group > label {
@@ -621,12 +658,12 @@ body {
 }
 
 .home_price {
-  width: 20%;
+  width: 30%;
   border-radius: 20px;
   padding-left: 4px;
   background-color: #d4e9d7;
   margin-left: 3%;
-  margin-top: 40%;
+  margin-top: 50%;
   position: absolute;
   top: 0;
 }
@@ -758,4 +795,25 @@ body {
 
 .container_currency {
   width: 100%;
+}
+
+.subscribe > input {
+  width: 40%;
+  border-radius: 20px;
+  border: none;
+  padding: 8px;
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+.categories_title {
+  font-family: "Graphik Webfont", -apple-system, "Helvetica Neue", "Droid Sans",
+    Arial, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.subscribe_btn:hover {
+  background-color: #2f466c;
 }

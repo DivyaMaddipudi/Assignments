@@ -52,7 +52,20 @@ function AboutFooter() {
           </h4>
           <div class="subscribe">
             <input type="text" placeholder="Enter your email" />
-            <h5>Subscribe</h5>
+            <button
+              className="subscribe_btn"
+              style={{
+                border: "none",
+                borderRadius: "20px",
+                fontSize: "18px",
+                position: "relative",
+                top: "0",
+                left: "-6%",
+                padding: "7px",
+              }}
+            >
+              Subscribe
+            </button>
           </div>
         </div>
       </section>

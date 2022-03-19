@@ -72,7 +72,7 @@ function addProducts({ setShowProductsAddPage }) {
         }}
       >
         <CloseLogin setshowSignIn={setShowProductsAddPage} />
-        <h2 className="addProd_title">Add product</h2>
+        <h2 className="addProd_title">Add Item</h2>
         <form
           className="items_form "
           method="post"
@@ -133,7 +133,7 @@ function addProducts({ setShowProductsAddPage }) {
               />
             </div>
           )}
-          <h1>{itemCategory}</h1>
+          {/* <h1>{itemCategory}</h1> */}
 
           <div className="htmlForm-group">
             <label htmlFor="item_image">Item Image</label>
@@ -205,9 +205,9 @@ function addProducts({ setShowProductsAddPage }) {
                 width: "90%",
                 borderRadius: "4px",
                 padding: "5px",
-                backgroundColor: "gray",
                 border: "none",
                 color: "white",
+                backgroundColor: "gray",
               }}
               onClick={addItem}
             >

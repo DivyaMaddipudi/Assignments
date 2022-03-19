@@ -5,56 +5,94 @@ function Dashboard() {
   return (
     <div>
       <div className="dash_board">
-        <h1 className="title">Welcome to Etsy, {cookie.load("user")}!</h1>
+        <h1 className="title">
+          {cookie.load("user")
+            ? `Welcome to Etsy, ${cookie.load("user")}!`
+            : "Explore one-of-a-kind finds from independent makers"}
+        </h1>
         <div className="dashboard_items">
           <div className="dashboard_item">
             <img
-              src="https://images.pexels.com/photos/1005058/pexels-photo-1005058.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              className="dashboard_image"
+              src="https://images.pexels.com/photos/1129413/pexels-photo-1129413.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt="home"
             ></img>
-            <h3 style={{ fontSize: "20px" }}>Home Decor</h3>
+            <h3 style={{ marginTop: "10px", fontSize: "20px" }}>Home Decor</h3>
           </div>
           <div className="dashboard_item">
             <img
-              src="https://images.pexels.com/photos/827518/pexels-photo-827518.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              className="dashboard_image"
+              src="https://images.pexels.com/photos/2013782/pexels-photo-2013782.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt="home"
             ></img>
-            <h3 style={{ fontSize: "20px", marginLeft: "-10%" }}>
+            <h3
+              style={{
+                marginTop: "10px",
+                fontSize: "20px",
+                marginLeft: "-10%",
+              }}
+            >
               Outdoor & Garden
             </h3>
           </div>
           <div className="dashboard_item">
             <img
-              src="https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              className="dashboard_image"
+              src="https://images.pexels.com/photos/6434620/pexels-photo-6434620.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt="home"
             ></img>
-            <h3 style={{ fontSize: "20px", marginLeft: "-10%" }}>
+            <h3
+              style={{
+                marginTop: "10px",
+                fontSize: "20px",
+                marginLeft: "-10%",
+              }}
+            >
               Kitchen & Dining
             </h3>
           </div>
           <div className="dashboard_item">
             <img
-              src="https://images.pexels.com/photos/994515/pexels-photo-994515.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              className="dashboard_image"
+              src="https://images.pexels.com/photos/3981763/pexels-photo-3981763.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt="home"
             ></img>
-            <h3 style={{ fontSize: "20px", marginLeft: "10%" }}>Necklaces</h3>
+            <h3
+              style={{ marginTop: "10px", fontSize: "20px", marginLeft: "1%" }}
+            >
+              Accessories
+            </h3>
           </div>
           <div className="dashboard_item">
             <img
-              src="https://images.pexels.com/photos/1410226/pexels-photo-1410226.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              className="dashboard_image"
+              src="https://images.pexels.com/photos/169203/pexels-photo-169203.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt="home"
             ></img>
-            <h3 style={{ fontSize: "20px", marginLeft: "-10%" }}>
+            <h3
+              style={{
+                marginTop: "10px",
+                fontSize: "20px",
+                marginLeft: "-10%",
+              }}
+            >
               Wedding Decor
             </h3>
           </div>
           <div className="dashboard_item">
             <img
-              src="https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              className="dashboard_image"
+              src="https://images.pexels.com/photos/325153/pexels-photo-325153.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt="home"
             ></img>
-            <h3 style={{ fontSize: "20px", marginLeft: "-15%" }}>
-              On Sale & Discount
+            <h3
+              style={{
+                marginTop: "10px",
+                fontSize: "20px",
+                marginLeft: "15%",
+              }}
+            >
+              Gadgets
             </h3>
           </div>
         </div>

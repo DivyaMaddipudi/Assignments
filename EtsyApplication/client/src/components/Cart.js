@@ -11,6 +11,7 @@ import Axios from "axios";
 // Actions
 // import { addToCart, removeFromCart } from "../redux/actions/cartActions";
 import {
+  clearCart,
   createCartItem,
   createFinalCart,
   getCartItems,
@@ -49,8 +50,8 @@ const CartScreen = () => {
 
   const handleCheckOut = () => {
     console.log(JSON.stringify(finalCartProducts));
-
     localStorage.setItem("purchase", JSON.stringify(finalCartProducts));
+    dispatch(clearCart());
     window.location.pathname = "/purchase";
 
     // Axios.post("http://localhost:4000/addCartProduct/" + user.id, {

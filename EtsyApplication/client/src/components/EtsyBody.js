@@ -103,7 +103,7 @@ function EtsyBody() {
   };
 
   var renderProducts = null;
-  if (products && products.itemImage) {
+  if (products.length !== 0) {
     renderProducts = products.map((pro) => {
       return (
         <div className="home_cards col-md-4 mb-4">
@@ -134,7 +134,9 @@ function EtsyBody() {
             />
             <p className="home_price">
               <AirportShuttleIcon />
-              {localStorage.getItem("preferedCurrency")} {pro.itemPrice}
+              &nbsp;
+              {localStorage.getItem("preferedCurrency")}
+              {pro.itemPrice}
             </p>
 
             {/* <div className="card-body">
@@ -167,7 +169,6 @@ function EtsyBody() {
         <div className="row mt-5 mx-1">
           <div className="col-md-9">
             {/* {products.length} */}
-            <h1>{products.length}</h1>
             {products.length === 0 ? (
               <div></div>
             ) : (

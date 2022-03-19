@@ -358,6 +358,23 @@ app.get("/getItemById/:itemId", (req, res) => {
   });
 });
 
+app.get("/getItemsByCategory", (req, res) => {
+  console.log("get items by category");
+  const category = "jewellery";
+  db.query(
+    "SELECT * FROM Items WHERE itemCategory=? ORDER BY itemId DESC LIMIT 3",
+    [category],
+    (err, result) => {
+      console.log(result);
+      if (err) {
+        res.send(err);
+      } else {
+        res.send({ success: true, result });
+      }
+    }
+  );
+});
+
 app.put("/updateItemById/:itemId", (req, res) => {
   const id = req.params.itemId;
   // const userId = req.params.id;

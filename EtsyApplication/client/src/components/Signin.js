@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 import cookie from "react-cookies";
 import { useDispatch } from "react-redux";
+import GoogleIcon from "@mui/icons-material/Google";
 import { login, activeUser, activeShop } from "../features/userSlice";
 
 function Signin({ setshowSignIn }) {
@@ -92,7 +93,6 @@ function Signin({ setshowSignIn }) {
       <div className="bg-modal">
         <div className="modal-content">
           <CloseLogin setshowSignIn={setshowSignIn} />
-
           <div className="signin_heading">
             <h4>Sign in</h4>
             <button
@@ -145,6 +145,16 @@ function Signin({ setshowSignIn }) {
               Sign In
             </button>
           </form>
+          <div className="google_signin">
+            <p style={{ textAlign: "center", marginTop: "5px" }}>OR</p>
+            <button
+              // onClick={checkUser}
+              type="submit"
+              className="googleauth_btn"
+            >
+              Continue with Google
+            </button>
+          </div>
         </div>
         {showRegister === true && (
           <Register setShowRegister={setShowRegister} />

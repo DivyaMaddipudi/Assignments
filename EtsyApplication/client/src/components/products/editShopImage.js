@@ -12,6 +12,8 @@ const editShopImage = ({ editShopPage }) => {
 
   const editImage = (e) => {
     e.preventDefault();
+    editShopPage(false);
+
     const formData = new FormData();
     formData.append("shopImage", shopImage);
     console.log("Inedit client axios");
@@ -26,7 +28,6 @@ const editShopImage = ({ editShopPage }) => {
         window.location.pathname = "/shopHome";
       }
     });
-    editShopPage(false);
   };
 
   useEffect(() => {

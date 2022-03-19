@@ -35,6 +35,9 @@ export const cartItemsSlice = createSlice({
       //   state.cartProducts = null;
       // console.log(item + "----------------------------: deleted");
     },
+    clearCart: (state) => {
+      state.cartItems = null;
+    },
     updateCartItem: (state, action) => {
       state.cartItems = action.payload;
     },
@@ -61,6 +64,7 @@ export const {
   removeCartItem,
   updateCartItem,
   createFinalCart,
+  clearCart,
 } = cartItemsSlice.actions;
 
 export const getCartItems = (state) => state.cartItem.cartItems;

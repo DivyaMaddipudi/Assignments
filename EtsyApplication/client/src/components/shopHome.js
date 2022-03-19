@@ -228,7 +228,7 @@ function shopHome() {
         />
       )}
       {showShowImageEditPage && (
-        <EditShopImage showShowImageEditPage={setShowShowImageEditPage} />
+        <EditItemImage setShowProductsEditPage={setShowShowImageEditPage} />
       )}
     </div>
   );

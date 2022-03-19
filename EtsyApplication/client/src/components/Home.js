@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import EtsyBody from "./EtsyBody";
 import AboutFooter from "./AboutFooter";
 import FooterBanner from "./FooterBanner";
+import ProductsByCategory from "./productsByCategory";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Hoverbar />
       <Dashboard />
       <EtsyBody />
+      <ProductsByCategory />
 
       <AboutFooter />
 
