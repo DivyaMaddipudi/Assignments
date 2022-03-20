@@ -32,7 +32,7 @@ function Signin({ setshowSignIn }) {
   const checkUser = (e) => {
     e.preventDefault();
 
-    Axios.post("http://52.53.179.153:4000/signin", {
+    Axios.post("http://54.153.83.48:4000/signin", {
       email: email,
       password: password,
     })
