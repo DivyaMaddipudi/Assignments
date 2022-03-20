@@ -16,6 +16,7 @@ function profileForm() {
   const [city, setCity] = useState("");
   const [dob, setDob] = useState("");
   const [about, setAbout] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleUserData = (e) => {
     e.preventDefault();
@@ -34,6 +35,7 @@ function profileForm() {
     formData.append("city", city);
     formData.append("dob", dob);
     formData.append("about", about);
+    formData.append("phoneNumber", phoneNumber);
 
     console.log(dob);
 
@@ -51,8 +53,9 @@ function profileForm() {
             dob: dob,
             gender: gender,
             city: city,
-            profilePic: userImage.lastModified + userImage.name,
+            profilePic: userImage.lastModified + "" + userImage.name,
             about: about,
+            phoneNumber: phoneNumber,
           })
         );
         window.location.pathname = "/profileForm";
@@ -64,10 +67,11 @@ function profileForm() {
     fetchItemDetails();
   }, []);
 
-  const fetchItemDetails = () => {
+  const fetchItemDetails = (e) => {
+    // e.preventDefault();
     Axios.get("http://localhost:4000/getShopById/" + user.id).then(
       (response) => {
-        // console.log(response);
+        console.log(response);
 
         // console.log("In get of profile form");
         if (response.data.success === true) {
@@ -79,6 +83,7 @@ function profileForm() {
           setGender(response.data.result[0].gender);
           setCity(response.data.result[0].city);
           setAbout(response.data.result[0].about);
+          setPhoneNumber(response.data.result[0].phoneNumber);
           console.log("Products stored in product");
         }
       }
@@ -164,6 +169,18 @@ function profileForm() {
                   }}
                   type="text"
                   id="name"
+                />
+              </div>
+
+              <div className="section">
+                <div className="label">Phone Number</div>
+                <input
+                  defaultValue={phoneNumber}
+                  onChange={(event) => {
+                    setPhoneNumber(event.target.value);
+                  }}
+                  type="number"
+                  id="number"
                 />
               </div>
 

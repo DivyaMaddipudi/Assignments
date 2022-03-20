@@ -12,8 +12,11 @@ import ShopHeader from "./shopHeader";
 import EditShopImage from "./products/editShopImage";
 import { getProducts } from "../features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function shopHome() {
+  const { id } = useParams(); //itemId
+  const [searchItemDetails, setSearchItemDetails] = useState([]);
   const user = useSelector(selectUser);
   const product = useSelector(getProducts);
   const [products, setProducts] = useState([]);
@@ -41,7 +44,17 @@ function shopHome() {
       limit: limit,
     };
     viewItems(variables);
+    getItemsByItemSearchId();
   }, []);
+
+  const getItemsByItemSearchId = () => {
+    Axios.get("http://localhost:4000/getItemById/" + id).then((response) => {
+      console.log(response);
+      if (response) {
+        setSearchItemDetails(response.data.result);
+      }
+    });
+  };
 
   const onLoadMore = () => {
     console.log(limit);

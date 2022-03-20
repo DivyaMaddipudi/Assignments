@@ -13,19 +13,20 @@ import Hoverbar from "./Hoverbar";
 import Navbar from "./Navbar";
 import "./ProductOverView.css";
 import { getCartItems } from "../features/cartItemsSlice";
+import { useParams } from "react-router-dom";
 
-function ProductOverView() {
+function ProductView() {
+  const { id } = useParams();
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const productView = useSelector(getAllCartProducts);
   // const cartProduct = useSelector(getAllCartProducts);
   // const cartItems = useSelector(getCartItems);
-  const [addToCartMessage, setAddToCart] = useState("");
 
   const addToCartHandler = () => {
     console.log("add to cart handler");
-    setAddToCart("Item added to your cart successfully");
+
     // cartItems.map((ele) => console.log(ele));
     // if (cartItems) {
     dispatch(
@@ -71,17 +72,9 @@ function ProductOverView() {
       <Navbar />
       <Hoverbar />
       <hr></hr>
+      <h1>{id}</h1>
 
-      <h3
-        style={{
-          textAlign: "center",
-          fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
-        }}
-      >
-        {addToCartMessage}
-      </h3>
-
-      <div className="productscreen">
+      {/* <div className="productscreen">
         <div className="productscreen__left">
           <div className="left__image">
             <img
@@ -127,9 +120,9 @@ function ProductOverView() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
 
-export default ProductOverView;
+export default ProductView;

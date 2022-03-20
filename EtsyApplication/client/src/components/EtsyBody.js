@@ -103,57 +103,52 @@ function EtsyBody() {
   };
 
   var renderProducts = null;
-  if (products.length !== 0) {
-    renderProducts = products.map((pro) => {
-      return (
-        <div className="home_cards col-md-4 mb-4">
-          <div className="home_card card">
-            <div
-              style={{
-                backgroundColor: "white",
-                borderRadius: "50%",
-                padding: "5px",
-              }}
-              className="favourite_icon"
-              onClick={() => {
-                handleFavourite(pro.itemId, user.id);
-              }}
-            >
-              {/* {toggleFavourites} */}
-              <FavoriteTwoToneIcon />
-              {/* {favourites.itemId === products.itemId &&
-              favourites.userId === user.id} */}
-            </div>
-            <img
-              src={require("../Images/" + pro.itemImage)}
-              className="home_image card-img-top"
-              alt="..."
-              onClick={() => {
-                handleOpenImage(pro);
-              }}
-            />
-            <p className="home_price">
-              <AirportShuttleIcon />
-              &nbsp;
-              {localStorage.getItem("preferedCurrency")}
-              {pro.itemPrice}
-            </p>
 
-            {/* <div className="card-body">
+  renderProducts = products.map((pro) => {
+    return (
+      <div className="home_cards col-md-4 mb-4">
+        <div className="home_card card">
+          <div
+            style={{
+              backgroundColor: "white",
+              borderRadius: "50%",
+              padding: "5px",
+            }}
+            className="favourite_icon"
+            onClick={() => {
+              handleFavourite(pro.itemId, user.id);
+            }}
+          >
+            {/* {toggleFavourites} */}
+            <FavoriteTwoToneIcon />
+            {/* {favourites.itemId === products.itemId &&
+              favourites.userId === user.id} */}
+          </div>
+          <img
+            src={require("../Images/" + pro.itemImage)}
+            className="home_image card-img-top"
+            alt="..."
+            onClick={() => {
+              handleOpenImage(pro);
+            }}
+          />
+          <p className="home_price">
+            <AirportShuttleIcon />
+            &nbsp;
+            {localStorage.getItem("preferedCurrency")}
+            {pro.itemPrice}
+          </p>
+
+          {/* <div className="card-body">
             <h5 className="card-title">{pro.itemName}</h5>
 
             <p className="card-text">{pro.itemDescription}</p>
-            <button onClick={productOverViewScreen} className="btn-sm btn-dark">
-              View Product
-            </button>
+            <button className="btn-sm btn-dark">View Product</button>
           </div> */}
-          </div>
         </div>
-      );
-    });
-  } else {
-    return <div>Hi</div>;
-  }
+      </div>
+    );
+  });
 
   return (
     <div
@@ -165,14 +160,23 @@ function EtsyBody() {
         marginRight: "3%",
       }}
     >
-      <div className="container-fluid mx-1">
-        <div className="row mt-5 mx-1">
+      <div className="container-fluid mx-2">
+        <div className="row mt-5 mx-2">
           <div className="col-md-9">
             {/* {products.length} */}
             {products.length === 0 ? (
               <div></div>
             ) : (
               <div className="row">{renderProducts}</div>
+            )}
+          </div>
+          <div className="col-md-3">
+            {products.length === 0 ? (
+              ""
+            ) : (
+              <p className="categories_title">
+                Items you may like from all the shops
+              </p>
             )}
           </div>
         </div>

@@ -1,215 +1,90 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
-import Hoverbar from "./Hoverbar";
-import { selectUser } from "../features/userSlice";
-import AddProducts from "./products/addProducts";
 import Axios from "axios";
-import { Col, Card, Row } from "antd";
-import EditProducts from "./products/editProducts";
-import EditItemImage from "./products/editItemImage";
-import SearchFeature from "./Features/searchFeature";
-import ShopHeader from "./shopHeader";
-import EditShopImage from "./products/editShopImage";
-import { getProducts } from "../features/productsSlice";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  createProducts,
+  getUserId,
+  userDetails,
+  userId,
+} from "../features/shopSlice";
+import { selectUser } from "../features/userSlice";
+import Hoverbar from "./Hoverbar";
+import Navbar from "./Navbar";
+// import ShopHeader from "./shopHeader";
+import ShopHeaderByOther from "./shopHeaderByOther";
+import ShopHomeOtherUser from "./shopHomeOtherUser";
 
 function shopHomeByOther() {
-  const user = useSelector(selectUser);
-  const product = useSelector(getProducts);
-  const [products, setProducts] = useState([]);
-  const [showProds, setShowProds] = useState(false);
-  const [Skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(3);
-  const [showProductsAddPage, setShowProductsAddPage] = useState(false);
-  const [postSize, setPostSize] = useState();
-  const [showProductsEditPage, setShowProductsEditPage] = useState(false);
-  const [productId, setProductId] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState("");
-  const [showShowImageEditPage, setShowShowImageEditPage] = useState(false);
-  const [shop, setShop] = useState();
-  const [shopImage, setShopImage] = useState();
+  const { id } = useParams(); //itemId
+  const [userIdFromSearch, setUserIdFromSearch] = useState();
+  // const user = useSelector(selectUser);
+
+  const [userInfo, setUserInfo] = useState("");
+  const [itemsByUser, setItemsByUser] = useState([]);
+  const dispatch = useDispatch();
+  const userid = useSelector(getUserId);
 
   useEffect(() => {
-    const variables = {
-      skip: Skip,
-      limit: limit,
-    };
-    viewItems(variables);
-  }, []);
+    getUserIdFromItemId();
+    getItemsFromUserid();
+    getUserDetails();
+    // setTimeout(() => {
+    //   getItemsFromUserid();
+    // }, 2000);
 
-  const onLoadMore = () => {
-    console.log(limit);
-    console.log(skip);
-    let skip = Skip + limit;
-    console.log(skip + " in load more");
-    const variables = {
-      skip: skip,
-      limit: limit,
-      loadMore: true,
-    };
-    viewItems(variables);
-    setSkip(skip);
-  };
+    // setTimeout(() => {
+    //   userDetails();
+    // }, 3000);
+  });
 
-  var viewItems = (variables) => {
-    setShowProds(true);
-    console.log("---------------in view Items-------------------");
-    Axios.post(
-      "http://localhost:4000/getAllProducts/" + product.userId,
-      variables
-    ).then((response) => {
-      if (response.data.success) {
-        if (variables.loadMore) {
-          setProducts([...products, ...response.data.result]);
-          console.log(products);
-        } else {
-          setProducts(response.data.result);
-        }
-        setPostSize(response.data.postSize);
-        console.log(product.userId + " if ");
-
-        console.log(response.data.postSize + "Postsize in getallProducts");
-      } else {
-        console.log("Failed in ");
+  const getUserIdFromItemId = () => {
+    Axios.get("http://localhost:4000/getItemById/" + id).then((response) => {
+      if (response) {
+        dispatch(userId(response.data[0].userId));
       }
     });
   };
 
-  const editItem = (id) => {
-    setShowProductsEditPage(true);
-    setProductId(id);
-    console.log("Item to edit" + id);
-  };
-
-  const editShopImage = () => {
-    setShowShowImageEditPage(true);
-    console.log("Edit button clicked");
-  };
-
-  const editItemImage = (id) => {
-    setShowProductsEditPage(true);
-    setProductId(id);
-    console.log("Item to edit" + id);
-  };
-
-  const updateSearchTerm = (newSearchTerm) => {
-    setSearchTerm(newSearchTerm);
-    console.log(newSearchTerm + ".........................");
-
-    const variables = {
-      skip: 0,
-      limit: limit,
-      filters: filters,
-      searchTerm: searchTerm,
-    };
-    setSkip(0);
-    viewItems(variables);
-  };
-
-  const renderCards = products.map((pro) => {
-    return (
-      <div className="col-md-4 mb-4">
-        <div className="card">
-          <img
-            src={require("../Images/" + pro.itemImage)}
-            className="card-img-top"
-            alt="..."
-          />
-          <div className="card-body">
-            <h5 className="card-title">{pro.itemName}</h5>
-            <p>Price: ${pro.itemPrice}</p>
-            <p className="card-text">{pro.itemDescription}</p>
-            <button
-              onClick={() => editItem(pro.itemId)}
-              className="btn-sm btn-dark"
-            >
-              Edit
-            </button>
-            &nbsp;&nbsp;
-            <button
-              onClick={() => editItemImage(pro.itemId)}
-              className="btn-sm btn-dark"
-            >
-              Edit Image
-            </button>
-          </div>
-        </div>
-      </div>
+  const getItemsFromUserid = () => {
+    Axios.get("http://localhost:4000/getItemsBasedOnUser/" + userid).then(
+      (response) => {
+        if (response) {
+          console.log(response);
+          // setUserInfo();
+          dispatch(createProducts(response.data.result));
+          console.log("helllo");
+          console.log(userInfo);
+        }
+      }
     );
-  });
+  };
+
+  const getUserDetails = () => {
+    Axios.get("http://localhost:4000/getShopById/" + userid).then(
+      (response) => {
+        if (response) {
+          console.log(response);
+          // setUserInfo(response.data.result[0]);
+          dispatch(userDetails(response.data.result[0]));
+          // console.log(response.data.result[0].name);
+          console.log("hi");
+        }
+      }
+    );
+  };
 
   return (
     <div>
       <Navbar />
       <Hoverbar />
       <hr></hr>
-      <ShopHeader />
-      <div className="shop_items">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginRight: "10%",
-            marginTop: "-3.5%",
-          }}
-        >
-          <SearchFeature refreshFunction={updateSearchTerm} />
-        </div>
-        <div>
-          <div style={{ width: "75%", margin: "3rem auto" }}>
-            <div style={{ textAlign: "center" }}></div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                margin: "1rem auto",
-              }}
-            ></div>
-            {products.length === 0 ? (
-              <div
-                style={{
-                  display: "flex",
-                  height: "300px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <h2>No post yet...</h2>
-              </div>
-            ) : (
-              <div className="container-fluid mx-1">
-                <div className="row mt-5 mx-1">
-                  <div className="col-md-15">
-                    <div className="row">{renderCards}</div>
-                  </div>
-                </div>
-              </div>
-            )}
+      <h1>{userIdFromSearch}</h1>
 
-            <br />
-            <br />
-            {postSize >= limit && (
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <button onClick={onLoadMore}>Load More</button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-      {showProductsAddPage && (
-        <AddProducts setShowProductsAddPage={setShowProductsAddPage} />
-      )}
-      {showProductsEditPage && (
-        <EditItemImage
-          setShowProductsEditPage={setShowProductsEditPage}
-          products={products}
-          itemId={productId}
-        />
-      )}
-      {showShowImageEditPage && (
-        <EditShopImage showShowImageEditPage={setShowShowImageEditPage} />
-      )}
+      <ShopHeaderByOther />
+      <ShopHomeOtherUser />
+
+      {/* shop home header  */}
     </div>
   );
 }

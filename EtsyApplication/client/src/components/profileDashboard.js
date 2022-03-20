@@ -33,8 +33,7 @@ function profileDashboard() {
         if (response.data.success === true) {
           console.log("geting all fav products and storing in redux");
           dispatch(favouritesList(response.data.result));
-          // setFavProds(response.data.result);
-          // console.log(response.data.result.length);
+          console.log(response.data.result.length);
           console.log(favProds);
         }
       }
@@ -62,7 +61,7 @@ function profileDashboard() {
   };
 
   let renderFavourites = null;
-  if (favProds.length === 0) {
+  if (favProds === null) {
     renderFavourites = () => {
       return <div>No Favourites added</div>;
     };
@@ -89,7 +88,7 @@ function profileDashboard() {
               className="card-img-top"
               alt="..."
             />
-            <p style={{ marginTop: "60%" }} className="home_price">
+            <p className="home_price">
               <AirportShuttleIcon /> ${pro.itemPrice}
             </p>
 
@@ -113,7 +112,8 @@ function profileDashboard() {
   return (
     <div>
       {redirectVar}
-      <h1>{favProdS}</h1>
+      {/* <h1>{favProdS}</h1> */}
+
       <div className="profile_dashboard">
         {user !== null && (
           <img

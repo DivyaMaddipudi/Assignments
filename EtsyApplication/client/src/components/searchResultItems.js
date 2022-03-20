@@ -67,6 +67,12 @@ function searchResultItems() {
     }
   };
 
+  const handleOpenImage = (pro) => {
+    console.log("hello");
+    console.log(pro.itemId);
+    // window.location.pathname = `/productView/${pro.itemId}`;
+  };
+
   let searchPage = null;
   if (user && cookie.load("user") && product !== null) {
     searchPage = product.map((pro) => {
@@ -74,6 +80,9 @@ function searchResultItems() {
         <div className="col-md-4 mb-4">
           <div className="card">
             <img
+              onClick={() => {
+                handleOpenImage(pro);
+              }}
               src={require("../Images/" + pro.itemImage)}
               className="card-img-top"
               alt="..."
@@ -81,7 +90,7 @@ function searchResultItems() {
             <div className="card-body">
               <h5 className="card-title">{pro.itemName}</h5>
               <p>Price: ${pro.itemPrice}</p>
-              <a href="/shopHomeForOthers">Shop</a>
+              <Link to={`/shopHomeForOthers/${pro.itemId}`}>Shop</Link>
               <p className="card-text">{pro.itemDescription}</p>
             </div>
           </div>

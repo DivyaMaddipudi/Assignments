@@ -6,7 +6,7 @@ import { selectUser } from "../features/userSlice";
 // import EditShop from "./ShopDetails/editShop";
 import EditShopImage from "./products/editShopImage";
 
-function shopHeader() {
+function shopHeader({ searchProductUserId }) {
   const user = useSelector(selectUser);
   const product = useSelector(getProducts);
   const [shopName, setShopName] = useState("");
@@ -47,14 +47,19 @@ function shopHeader() {
           <h3 className="shop_name">{shopName}</h3>
           <p> 10 Sales </p>
           {/* {editButton} */}
-          <button
-            onClick={() => editShopDetails(user.id)}
-            id="imgupload"
-            className="editshop_btn"
-            type="submit"
-          >
-            Edit shop
-          </button>
+
+          {searchProductUserId == user.id ? (
+            <button
+              onClick={() => editShopDetails(user.id)}
+              id="imgupload"
+              className="editshop_btn"
+              type="submit"
+            >
+              Edit shop
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="owner_details">

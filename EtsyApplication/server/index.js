@@ -348,6 +348,7 @@ app.post("/getAllProducts/:id", (req, res) => {
 
 app.get("/getItemById/:itemId", (req, res) => {
   const id = req.params.itemId;
+  console.log("Get items by item ID");
   db.query("SELECT * FROM Items WHERE itemId=?", id, (err, result) => {
     console.log(result);
     if (err) {
@@ -360,7 +361,7 @@ app.get("/getItemById/:itemId", (req, res) => {
 
 app.get("/getItemsByCategory", (req, res) => {
   console.log("get items by category");
-  const category = "jewellery";
+  const category = "clothing";
   db.query(
     "SELECT * FROM Items WHERE itemCategory=? ORDER BY itemId DESC LIMIT 3",
     [category],
@@ -443,12 +444,30 @@ app.put("/updateItemImageById/:itemId", (req, res) => {
 app.get("/getShopById/:userId", (req, res) => {
   console.log("In get shop by id");
   const userId = req.params.userId;
+  console.log(userId);
   db.query("SELECT * FROM Users WHERE id=?", userId, (err, result) => {
     if (err) {
       res.send(err);
       console.log(err);
     } else {
       console.log(result);
+      console.log("-----------------------------");
+      res.send({ success: true, result: result });
+    }
+  });
+});
+
+app.get("/getUserInfo/:id", (req, res) => {
+  console.log("In get shop by id");
+  const userId = req.params.userId;
+  console.log(userId);
+  db.query("SELECT * FROM Users WHERE id=?", userId, (err, result) => {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    } else {
+      console.log(result);
+      console.log("-----------------------------");
       res.send({ success: true, result: result });
     }
   });
@@ -528,12 +547,16 @@ app.put("/updateUser/:id", async (req, res) => {
       const dob = req.body.dob;
       const userImage = req.file.filename;
       const about = req.body.about;
+      const phoneNumber = req.body.phoneNumber;
 
       console.log(userImage);
       console.log(userName);
+      console.log(
+        "Updateing profile --------------------------------: " + phoneNumber
+      );
       db.query(
-        "UPDATE Users set name = ?, city  = ?, dob  = ?, gender  = ?, about  = ?, profilePic=? where id = ? ",
-        [userName, city, dob, gender, about, userImage, userId],
+        "UPDATE Users set name = ?, city  = ?, dob  = ?, gender  = ?, about  = ?, phoneNumber =?, profilePic=? where id = ? ",
+        [userName, city, dob, gender, about, phoneNumber, userImage, userId],
         (err, result) => {
           console.log(result);
           if (err) {
@@ -553,6 +576,20 @@ app.put("/updateUser/:id", async (req, res) => {
 app.get("/getItems", (req, res) => {
   console.log("Getting all products in home");
   db.query("SELECT * FROM Items", (err, result) => {
+    console.log(result);
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      res.send({ success: true, result });
+    }
+  });
+});
+
+app.get("/getItemsBasedOnUser/:id", (req, res) => {
+  const userId = req.params.id;
+  console.log("Getting all products in home");
+  db.query("SELECT * FROM Items WHERE userId = ?", [userId], (err, result) => {
     console.log(result);
     if (err) {
       console.log(err);

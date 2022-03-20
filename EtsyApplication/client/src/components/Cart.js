@@ -36,13 +36,21 @@ const CartScreen = () => {
   };
 
   const getCartCount = () => {
-    return finalCartProducts.reduce((qty, item) => Number(item.qty) + qty, 0);
+    if (finalCartProducts === null) {
+      return 0;
+    } else {
+      return finalCartProducts.reduce((qty, item) => Number(item.qty) + qty, 0);
+    }
   };
 
   const getCartSubTotal = () => {
-    return finalCartProducts
-      .reduce((price, item) => price + item.itemPrice * item.qty, 0)
-      .toFixed(2);
+    if (finalCartProducts === null) {
+      return 0;
+    } else {
+      return finalCartProducts
+        .reduce((price, item) => price + item.itemPrice * item.qty, 0)
+        .toFixed(2);
+    }
 
     // setFinalAmount(finalPrice);
     // return finalPrice;
@@ -51,7 +59,7 @@ const CartScreen = () => {
   const handleCheckOut = () => {
     console.log(JSON.stringify(finalCartProducts));
     localStorage.setItem("purchase", JSON.stringify(finalCartProducts));
-    dispatch(clearCart());
+    // dispatch(clearCart());
     window.location.pathname = "/purchase";
 
     // Axios.post("http://localhost:4000/addCartProduct/" + user.id, {
@@ -76,7 +84,7 @@ const CartScreen = () => {
         <div className="cartscreen__left">
           <h2>Shopping Cart</h2>
 
-          {finalCartProducts.length === 0 ? (
+          {finalCartProducts === null ? (
             <div>
               Your Cart Is Empty <Link to="/">Go Back</Link>
             </div>

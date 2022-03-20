@@ -817,3 +817,12 @@ body {
 .subscribe_btn:hover {
   background-color: #2f466c;
 }
+
+.categories_title {
+  margin-top: 40px;
+}
+
+.home_card:hover {
+  transform: scale(1.1);
+  transition: 0.6s;
+}

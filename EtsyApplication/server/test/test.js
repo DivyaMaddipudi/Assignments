@@ -20,7 +20,7 @@ describe("Post Signin", () => {
     chai.request
       .agent(app)
       .post("/signin")
-      .send({ email: "asha@gmail.com", password: "yalla" })
+      .send({ email: "divya@gmail.com", password: "divya" })
       .then(function (res) {
         console.log(res.status);
         expect(res).to.have.status(200);

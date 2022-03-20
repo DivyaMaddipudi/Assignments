@@ -52,7 +52,7 @@ function productsByCategory() {
             <div className="card-body">
               <h5 className="card-title">{pro.itemName}</h5>
 
-              <p className="card-text">{pro.itemDescription}</p>
+              {/* <p className="card-text">{pro.itemDescription}</p> */}
               {/* <button className="btn-sm btn-dark">Edit</button> */}
             </div>
           </div>
@@ -68,9 +68,13 @@ function productsByCategory() {
           <div className="container-fluid mx-2">
             <div className="row mt-5 mx-2">
               <div className="col-md-3">
-                <p className="categories_title">
-                  Categories We think you'll love
-                </p>
+                {products.length === 0 ? (
+                  ""
+                ) : (
+                  <p className="categories_title">
+                    Categories We think you'll love
+                  </p>
+                )}
               </div>
               <div className="col-md-9">
                 <div className="row"> {renderFavourites} </div>
