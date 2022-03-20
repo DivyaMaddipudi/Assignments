@@ -12,6 +12,9 @@ import {
 import { selectUser } from "../features/userSlice";
 import cookie from "react-cookies";
 import { Link, Navigate } from "react-router-dom";
+import { productOverview } from "../features/cartSlice";
+import ProductOverView from "./ProductOverView";
+import styled from "styled-components";
 
 function searchResultItems() {
   const products = useSelector(getProducts);
@@ -68,9 +71,12 @@ function searchResultItems() {
   };
 
   const handleOpenImage = (pro) => {
-    console.log("hello");
-    console.log(pro.itemId);
-    // window.location.pathname = `/productView/${pro.itemId}`;
+    // console.log(pro.itemId);
+    // console.log(pro.itemImage);
+    dispatch(productOverview(pro));
+    // console.log(pro.itemCount);
+    // setProductOverview(true);
+    window.location.pathname = "/productOverview";
   };
 
   let searchPage = null;
@@ -80,9 +86,6 @@ function searchResultItems() {
         <div className="col-md-4 mb-4">
           <div className="card">
             <img
-              onClick={() => {
-                handleOpenImage(pro);
-              }}
               src={require("../Images/" + pro.itemImage)}
               className="card-img-top"
               alt="..."
@@ -90,8 +93,17 @@ function searchResultItems() {
             <div className="card-body">
               <h5 className="card-title">{pro.itemName}</h5>
               <p>Price: ${pro.itemPrice}</p>
-              <Link to={`/shopHomeForOthers/${pro.itemId}`}>Shop</Link>
-              <p className="card-text">{pro.itemDescription}</p>
+
+              <ProductContainer>
+                <button
+                  className="button button3"
+                  onClick={() => {
+                    handleOpenImage(pro);
+                  }}
+                >
+                  View Overview
+                </button>
+              </ProductContainer>
             </div>
           </div>
         </div>
@@ -210,3 +222,20 @@ function searchResultItems() {
 }
 
 export default searchResultItems;
+const ProductContainer = styled.footer`
+  .button {
+    background-color: orange; /* Green */
+    border: none;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .button3 {
+    border-radius: 8px;
+  }
+`;

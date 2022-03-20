@@ -787,6 +787,24 @@ app.put("/updateItemById/:itemId", (req, res) => {
   );
 });
 
+app.post("/editCount/:id", (req, res) => {
+  const productid = req.params.id;
+  const quantity = req.body.quantity;
+  console.log(productid);
+  console.log(quantity);
+  db.query(
+    "UPDATE Items SET itemCount=itemCount-?,sales=sales+? WHERE itemId=?",
+    [quantity, quantity, productid],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ success: true });
+      }
+    }
+  );
+});
+
 const PORT = process.env.PORT || 4000;
 models.sequelize.sync().then(() => {
   app.listen(PORT, () => {

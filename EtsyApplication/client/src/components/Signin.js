@@ -9,6 +9,7 @@ import cookie from "react-cookies";
 import { useDispatch } from "react-redux";
 import GoogleIcon from "@mui/icons-material/Google";
 import { login, activeUser, activeShop } from "../features/userSlice";
+import { backendURL } from "./config.json";
 
 function Signin({ setshowSignIn }) {
   // const history = useHistory();
@@ -31,7 +32,7 @@ function Signin({ setshowSignIn }) {
   const checkUser = (e) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:4000/signin", {
+    Axios.post(backendURL + "/signin", {
       email: email,
       password: password,
     })
@@ -69,7 +70,7 @@ function Signin({ setshowSignIn }) {
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:4000/signin").then((response) => {
+    Axios.get(backendURL + "/signin").then((response) => {
       // console.log(response);
 
       if (response.data.loggedIn === true) {

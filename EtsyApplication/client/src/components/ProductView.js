@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 
 function ProductView() {
   const { id } = useParams();
+
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);

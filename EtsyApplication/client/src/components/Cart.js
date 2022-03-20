@@ -59,6 +59,18 @@ const CartScreen = () => {
   const handleCheckOut = () => {
     console.log(JSON.stringify(finalCartProducts));
     localStorage.setItem("purchase", JSON.stringify(finalCartProducts));
+
+    finalCartProducts.map((product) => {
+      Axios.post(`http://localhost:4000/editCount/${product.itemId}`, {
+        quantity: product.qty,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
     // dispatch(clearCart());
     window.location.pathname = "/purchase";
 

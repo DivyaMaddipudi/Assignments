@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import CloseLogin from "../closeLogin";
 import CategoryComponent from "./CategoryComponent";
+// import { backendURL } from "../../../../server/config/config.json";
 
 function addProducts({ setShowProductsAddPage }) {
   const user = useSelector(selectUser);

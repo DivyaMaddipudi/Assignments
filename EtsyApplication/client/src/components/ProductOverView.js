@@ -13,6 +13,7 @@ import Hoverbar from "./Hoverbar";
 import Navbar from "./Navbar";
 import "./ProductOverView.css";
 import { getCartItems } from "../features/cartItemsSlice";
+import { Link } from "react-router-dom";
 
 function ProductOverView() {
   const [qty, setQty] = useState(1);
@@ -96,6 +97,11 @@ function ProductOverView() {
             <p className="left__name">{productView.itemName}</p>
             <p>Price: ${productView.itemPrice}</p>
             <p>Description: {productView.itemDescription}</p>
+            <p>
+              <Link to={`/shopHomeForOthers/${productView.itemId}`}>
+                Shop Home
+              </Link>
+            </p>
           </div>
         </div>
         <div className="productscreen__right">
