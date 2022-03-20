@@ -32,7 +32,7 @@ function Signin({ setshowSignIn }) {
   const checkUser = (e) => {
     e.preventDefault();
 
-    Axios.post(backendURL + "/signin", {
+    Axios.post("http://52.53.179.153:4000/signin", {
       email: email,
       password: password,
     })
@@ -70,7 +70,7 @@ function Signin({ setshowSignIn }) {
   };
 
   useEffect(() => {
-    Axios.get(backendURL + "/signin").then((response) => {
+    Axios.get("http://52.53.179.153:4000/signin").then((response) => {
       // console.log(response);
 
       if (response.data.loggedIn === true) {

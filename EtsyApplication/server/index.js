@@ -16,12 +16,12 @@ const path = require("path");
 const userRoutes = require("./routes/user");
 const { count } = require("console");
 
-const app = express();
-app.use(express.static(__dirname + "/public"));
+// const app = express();
+// app.use(express.static(__dirname + "/public"));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://52.53.179.153:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -47,7 +47,7 @@ app.use(
 );
 
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "http://52.53.179.153:3000");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -117,14 +117,14 @@ const upload = multer({
 //static images folder
 app.use("/Images", express.static("./Images"));
 
-app.get("*", function (req, res) {
-  res.sendFile(`${__dirname}/public/index.html`, (err) => {
-    if (err) {
-      console.log(err);
-      res.end(err.message);
-    }
-  });
-});
+// app.get("*", function (req, res) {
+//   res.sendFile(`${__dirname}/public/index.html`, (err) => {
+//     if (err) {
+//       console.log(err);
+//       res.end(err.message);
+//     }
+//   });
+// });
 //routers middleware
 // app.use("/", userRoutes);
 app.post("/register", (req, res) => {
