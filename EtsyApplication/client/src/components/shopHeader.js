@@ -48,18 +48,14 @@ function shopHeader({ searchProductUserId }) {
           <p> 10 Sales </p>
           {/* {editButton} */}
 
-          {searchProductUserId == user.id ? (
-            <button
-              onClick={() => editShopDetails(user.id)}
-              id="imgupload"
-              className="editshop_btn"
-              type="submit"
-            >
-              Edit shop
-            </button>
-          ) : (
-            ""
-          )}
+          <button
+            onClick={() => editShopDetails(user.id)}
+            id="imgupload"
+            className="editshop_btn"
+            type="submit"
+          >
+            Edit shop
+          </button>
         </div>
       </div>
       <div className="owner_details">

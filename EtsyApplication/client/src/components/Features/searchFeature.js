@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Input } from "antd";
-
-const { Search } = Input;
 
 function searchFeature(props) {
   const [searchTerms, setSearchTerms] = useState("");
@@ -13,7 +10,8 @@ function searchFeature(props) {
 
   return (
     <div>
-      <Search
+      <input
+        type="text"
         value={searchTerms}
         onChange={onChangeSearchEvent}
         placeholder="Search by typing.."
