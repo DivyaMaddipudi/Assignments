@@ -41,11 +41,11 @@ function searchResultItems() {
   };
 
   if (sortBy === "itemPrice") {
-    product.sort(function(a, b) {
+    product.sort(function (a, b) {
       return a.itemPrice - b.itemPrice;
     });
   } else if (sortBy === "itemCount") {
-    product.sort(function(a, b) {
+    product.sort(function (a, b) {
       return a.itemCount - b.itemCount;
     });
   }
@@ -80,7 +80,7 @@ function searchResultItems() {
         <div className="col-md-4 mb-4">
           <div className="card">
             <img
-              src={require("../Images/" + pro.itemImage)}
+              src={"/Images/" + pro.itemImage}
               className="card-img-top"
               alt="..."
             />

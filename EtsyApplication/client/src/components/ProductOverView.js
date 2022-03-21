@@ -51,7 +51,7 @@ function ProductOverView() {
     // }
     // console.log(productView.length);
     // if (user !== null) {
-    //   Axios.post("http://54.193.95.78:4000/addProductToCart/" + user.id, {
+    //   Axios.post("http://localhost:4000/addProductToCart/" + user.id, {
     // itemId: cartProduct.itemId,
     // itemName: cartProduct.itemName,
     // itemDescription: cartProduct.itemDescription,
@@ -86,7 +86,7 @@ function ProductOverView() {
         <div className="productscreen__left">
           <div className="left__image">
             <img
-              src={require("../Images/" + productView.itemImage)}
+              src={"/Images/" + productView.itemImage}
               alt={productView.itemName}
               //   height={300}
               width={450}

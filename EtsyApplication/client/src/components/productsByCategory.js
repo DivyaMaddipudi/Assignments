@@ -9,14 +9,12 @@ function productsByCategory() {
   }, []);
 
   const getItemsByCategory = () => {
-    Axios.get("http://54.193.95.78:4000/getItemsByCategory").then(
-      (response) => {
-        if (response.data.success === true) {
-          console.log(response.data.result);
-          setProducts(response.data.result);
-        }
+    Axios.get("http://localhost:4000/getItemsByCategory").then((response) => {
+      if (response.data.success === true) {
+        console.log(response.data.result);
+        setProducts(response.data.result);
       }
-    );
+    });
   };
 
   let renderFavourites = null;
@@ -43,7 +41,8 @@ function productsByCategory() {
               <FavoriteTwoToneIcon />
             </div>
             <img
-              src={require("../Images/" + pro.itemImage)}
+              src={"/Images/" + pro.itemImage}
+              // src={require("../Images/" + pro.itemImage)}
               className="card-img-top"
               alt="..."
             />

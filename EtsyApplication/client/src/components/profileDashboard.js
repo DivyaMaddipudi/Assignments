@@ -27,7 +27,7 @@ function profileDashboard() {
   }, []);
 
   const getFavouriteItems = () => {
-    Axios.get("http://54.193.95.78:4000/getFavourites/" + user.id).then(
+    Axios.get("http://localhost:4000/getFavourites/" + user.id).then(
       (response) => {
         console.log(response.data.result);
         if (response.data.success === true) {
@@ -47,7 +47,7 @@ function profileDashboard() {
   const handleFavourite = (itemId, userId) => {
     console.log("Favourites deletd" + itemId + userId);
     Axios.delete(
-      "http://54.193.95.78:4000/deleteFavourite/" + itemId + "/" + userId,
+      "http://localhost:4000/deleteFavourite/" + itemId + "/" + userId,
       {
         itemId: itemId,
         userId: userId,
@@ -84,7 +84,7 @@ function profileDashboard() {
               <FavoriteBorderIcon />
             </div>
             <img
-              src={require("../Images/" + pro.itemImage)}
+              src={"/Images/" + pro.itemImage}
               className="card-img-top"
               alt="..."
             />

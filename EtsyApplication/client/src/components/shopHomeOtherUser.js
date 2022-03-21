@@ -35,7 +35,7 @@ function shopHomeOtherUser() {
               <FavoriteBorderIcon />
             </div> */}
             <img
-              src={require("../Images/" + pro.itemImage)}
+              src={"/Images/" + pro.itemImage}
               className="card-img-top"
               alt="..."
             />

@@ -55,7 +55,7 @@ var books = [
 
 //route to root
 app.get("/", function (req, res) {
-  console.log(!req.session.user + " checking user in 54.193.95.78");
+  console.log(!req.session.user + " checking user in localhost");
   if (!req.session.user) {
     res.render("login");
   } else {

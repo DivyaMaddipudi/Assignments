@@ -8,7 +8,7 @@ var cors = require("cors");
 app.set("view engine", "ejs");
 
 //use cors to allow cross origin resource sharing
-app.use(cors({ origin: "http://54.193.95.78:3000", credentials: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 //use express session to maintain session data
 app.use(
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 //Allow Access Control
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://54.193.95.78:3000");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
     "Access-Control-Allow-Methods",

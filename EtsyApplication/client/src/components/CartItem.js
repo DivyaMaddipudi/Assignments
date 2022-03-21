@@ -46,7 +46,8 @@ const CartItem = ({ item }) => {
       <div className="cartitem">
         <div className="cartitem__image">
           <img
-            src={require("../Images/" + item.itemImage)}
+            src={"/Images/" + item.itemImage}
+            // src={require("../Images/" + item.itemImage)}
             alt={item.itemName}
             width={150}
             height={100}

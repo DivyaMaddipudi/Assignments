@@ -27,7 +27,7 @@ class Delete extends Component {
       id: this.state.id,
     };
 
-    Axios.post("http://54.193.95.78:3001/delete", data)
+    Axios.post("http://localhost:3001/delete", data)
       .then(() => {
         console.log("Success deleted");
       })
