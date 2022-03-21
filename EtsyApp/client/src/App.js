@@ -12,7 +12,7 @@ function App() {
   const [employeeList, setEmployeeList] = useState([]);
 
   const addEmployee = () => {
-    Axios.post("http://localhost:4000/create", {
+    Axios.post("http://54.193.95.78:4000/create", {
       name: name,
       age: age,
       country: country,
@@ -24,7 +24,7 @@ function App() {
   };
 
   const getEmployees = () => {
-    Axios.get("http://localhost:4000/employees").then((response) => {
+    Axios.get("http://54.193.95.78:4000/employees").then((response) => {
       // console.log(response);
       setEmployeeList(response.data);
     });
