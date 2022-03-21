@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Hoverbar from "./Hoverbar";
-import { Col, Card, Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/productsSlice";
 import { selectUser } from "../features/userSlice";

@@ -13,6 +13,5 @@
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
-  "backendURL": "http://18.144.177.82:4000"
+  }
 }
