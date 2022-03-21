@@ -3,12 +3,7 @@ import Navbar from "./Navbar";
 import Hoverbar from "./Hoverbar";
 import { Col, Card, Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProducts,
-  productsList,
-  removeProductsState,
-  updateProducts,
-} from "../features/productsSlice";
+import { getProducts } from "../features/productsSlice";
 import { selectUser } from "../features/userSlice";
 import cookie from "react-cookies";
 import { Link, Navigate } from "react-router-dom";
