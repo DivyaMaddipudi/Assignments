@@ -71,12 +71,12 @@ function searchResultItems() {
   };
 
   const handleOpenImage = (pro) => {
-    // console.log(pro.itemId);
-    // console.log(pro.itemImage);
+    console.log(pro.itemId);
+    console.log(pro.itemImage);
     dispatch(productOverview(pro));
     // console.log(pro.itemCount);
     // setProductOverview(true);
-    window.location.pathname = "/productOverview";
+    // window.location.pathname = "/productOverview";
   };
 
   let searchPage = null;
