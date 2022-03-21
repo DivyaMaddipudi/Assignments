@@ -47,7 +47,7 @@ function shopHome() {
   }, []);
 
   const getItemsByItemSearchId = () => {
-    Axios.get("http://54.193.95.78:4000/getItemById/" + id).then((response) => {
+    Axios.get("http://localhost:4000/getItemById/" + id).then((response) => {
       console.log(response);
       if (response) {
         setSearchItemDetails(response.data.result);
@@ -73,7 +73,7 @@ function shopHome() {
     setShowProds(true);
     console.log("---------------in view Items-------------------");
     Axios.post(
-      "http://54.193.95.78:4000/getAllProducts/" + user.id,
+      "http://localhost:4000/getAllProducts/" + user.id,
       variables
     ).then((response) => {
       if (response.data.success) {

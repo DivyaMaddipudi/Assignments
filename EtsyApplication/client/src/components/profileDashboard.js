@@ -27,7 +27,7 @@ function profileDashboard() {
   }, []);
 
   const getFavouriteItems = () => {
-    Axios.get("http://54.193.95.78:4000/getFavourites/" + user.id).then(
+    Axios.get("http://localhost:4000/getFavourites/" + user.id).then(
       (response) => {
         console.log(response.data.result);
         if (response.data.success === true) {
@@ -47,7 +47,7 @@ function profileDashboard() {
   const handleFavourite = (itemId, userId) => {
     console.log("Favourites deletd" + itemId + userId);
     Axios.delete(
-      "http://54.193.95.78:4000/deleteFavourite/" + itemId + "/" + userId,
+      "http://localhost:4000/deleteFavourite/" + itemId + "/" + userId,
       {
         itemId: itemId,
         userId: userId,
@@ -115,17 +115,14 @@ function profileDashboard() {
       {/* <h1>{favProdS}</h1> */}
 
       <div className="profile_dashboard">
-        {user !== null && (
-          <img
-            className="profile_image"
-            src={"/Users/Images/" + user.profilePic}
-            alt="profile pic"
-          />
-        )}
+        {/* {user !== null && (
+          // <img
+          //   className="profile_image"
+          //   src={"/Users/Images/" + user.profilePic}
+          //   alt="profile pic"
+          // />
+        )} */}
         {/* <img className="profile_pic" src="" /> */}
-        <span className="profile_imageIcon">
-          <PhotoCameraOutlined />
-        </span>
 
         <div className="profile_name">{cookie.load("user")}</div>
         <div className="edit_profileIcon">
