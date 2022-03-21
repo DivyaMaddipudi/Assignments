@@ -37,7 +37,7 @@ function EtsyBody() {
   }, []);
 
   const getItems = () => {
-    Axios.get("http://localhost:4000/getItems").then((response) => {
+    Axios.get("http://54.193.95.78:4000/getItems").then((response) => {
       if (response.data.success === true) {
         console.log(response.data.result);
         dispatch(getAllItems(response.data.result));
@@ -67,7 +67,7 @@ function EtsyBody() {
 
   const getFavourites = () => {
     if (user !== null) {
-      Axios.get("http://localhost:4000/getFavourites/" + user.id).then(
+      Axios.get("http://54.193.95.78:4000/getFavourites/" + user.id).then(
         (response) => {
           console.log("user id for favourites" + user.id);
           console.log(response.data.result);
@@ -81,7 +81,7 @@ function EtsyBody() {
 
   const handleFavourite = (itemId, userId) => {
     console.log("Favourites added" + itemId + userId);
-    Axios.post("http://localhost:4000/addFavourite", {
+    Axios.post("http://54.193.95.78:4000/addFavourite", {
       itemId: itemId,
       userId: userId,
     }).then((response) => {

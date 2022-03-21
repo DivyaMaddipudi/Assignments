@@ -7,5 +7,5 @@
     "database": "test_schema"
   },
   "secret": "mysqldemo",
-  "frontEnd": "http://localhost:3000"
+  "frontEnd": "http://54.193.95.78:3000"
 }
