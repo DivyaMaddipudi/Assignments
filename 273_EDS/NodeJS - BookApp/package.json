@@ -1,0 +1,21 @@
+{
+  "name": "full-project-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "ejs": "^2.7.4",
+    "express": "^4.16.3",
+    "express-session": "^1.17.2",
+    "expresss": "^0.0.0",
+    "view-engine": "^1.1.1"
+  }
+}
